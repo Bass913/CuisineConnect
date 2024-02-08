@@ -1,0 +1,32 @@
+{
+  "name": "cuisine-connect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "buffer-equal-constant-time": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "ecdsa-sig-formatter": "^1.0.11",
+    "express": "^4.18.2",
+    "googleapis": "^122.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "jws": "^4.0.0",
+    "mongoose": "^7.3.3",
+    "socket.io": "^4.7.1"
+  }
+}
