@@ -1,8 +1,10 @@
-import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import "dotenv/config";
 import cors from "cors";
 import express from "express";
 const port = process.env.PORT;
 import mongoose from "mongoose";
+import authRouter from "./src/router/authRouter.js";
+
 const app = express();
 
 app.listen(port || 3000, () => {
@@ -12,6 +14,8 @@ app.listen(port || 3000, () => {
 app.use(express.urlencoded({ extended: true, limit: "16mb" })); // Adjust the limit as needed
 app.use(express.json());
 app.use(cors());
+
+app.use("/auth", authRouter);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;

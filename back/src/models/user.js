@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "#3f51b5",
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

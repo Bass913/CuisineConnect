@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "es2018"],
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"exclude": ["node_modules", "dist"]
+}

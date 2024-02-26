@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Projet Morpion & Chat en temps réel
 
-## Getting Started
+Créé par:
+- Rafael93150, alias TAVARES DE PINHO Rafael
+- asma1mokeddes, alias MOKEDDES Asma
+- Taslima-Ahamed-Mze, alias TASLIMA Ahamed Mze
+- Bass913, alias DIKIADI NDONGALA VUANZA Bastien
 
-First, run the development server:
+## Comptes pré-créés
+Pour faciliter les tests et la démonstration du projet, voici les comptes pré-créés avec leurs rôles respectifs et les mots de passe associés :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+User Account:
+Identifiant: user@user.fr
+Mot de passe: test
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup le projet:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1 - Clonez ce projet à partir du référentiel GitHub en utilisant la commande suivante :
+git clone https://github.com/Rafael93150/hackathon.git
 
-## Learn More
+2 - Installer les Dépendances:
+Assurez-vous que vous avez Node.js et npm installés sur votre machine.
+Accédez au répertoire du projet et installez les dépendances en exécutant la commande suivante :
+cd tic-tac-toe/back > npm install
+cd tic-tac-toe/front > npm install
 
-To learn more about Next.js, take a look at the following resources:
+3 - Lancer l'Application:
+Une fois que tout est configuré, vous pouvez démarrer l'application en exécutant la commande :
+npm run dev sur tic-tac-toe/back ainsi que sur tic-tac-toe/front.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4 - Accéder à l'Application:
+Ouvrez votre navigateur et accédez à l'URL suivante pour accéder à l'application :
+http://localhost:5173
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5 - Connectez-vous:
+Utilisez l'un des comptes pré-créés mentionnés ci-dessus pour vous connecter à l'application.
