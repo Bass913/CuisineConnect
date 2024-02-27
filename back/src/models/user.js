@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema(
       enum: ["USER_ROLE", "ADMIN_ROLE"],
       default: "USER_ROLE",
     },
-    color: {
-      type: String,
-      default: "#3f51b5",
-    },
     active: {
       type: Boolean,
       default: false,
