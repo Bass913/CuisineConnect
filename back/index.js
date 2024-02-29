@@ -1,20 +1,15 @@
-import "dotenv/config";
-import cors from "cors";
-import express from "express";
+require("dotenv").config();
+const cors = require("cors");
+const express = require("express");
 const port = process.env.PORT;
-import mongoose from "mongoose";
-import authRouter from "./src/router/authRouter.js";
+const mongoose = require("mongoose");
+const authRouter = require("./routes/auth.js");
 
 const app = express();
 
-app.listen(port || 3000, () => {
-  console.log(`Cuisine-Connect app listening on port ${port}`);
-});
-
-app.use(express.urlencoded({ extended: true, limit: "16mb" })); // Adjust the limit as needed
+app.use(express.urlencoded({ extended: true, limit: "16mb" }));
 app.use(express.json());
 app.use(cors());
-
 app.use("/auth", authRouter);
 
 app.use((error, req, res, next) => {
@@ -24,9 +19,17 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, invalid_data: data });
 });
 
-try {
-  await mongoose.connect(process.env.DB_URI);
-  console.log("Connected to database");
-} catch (e) {
-  console.error(e);
-}
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI);
+    console.log("Connected to database");
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+startServer();
+
+app.listen(port || 3000, () => {
+  console.log(`Cuisine-Connect app listening on port ${port}`);
+});
