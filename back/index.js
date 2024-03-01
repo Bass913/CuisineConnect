@@ -4,6 +4,7 @@ const express = require("express");
 const port = process.env.PORT;
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
+const assistantRouter = require("./routes/assistant.js");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true, limit: "16mb" }));
 app.use(express.json());
 app.use(cors());
 app.use("/auth", authRouter);
+app.use("/assistant", assistantRouter);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
