@@ -13,7 +13,6 @@ User Account:
 Identifiant: user@user.fr
 Mot de passe: test
 
-
 ## Setup le projet:
 
 1 - Clonez ce projet à partir du référentiel GitHub en utilisant la commande suivante :
