@@ -1,4 +1,4 @@
-export default function Button({ onClick, backgroundColor, children }) {
+export default function Button({ onClick, backgroundColor, children, type }) {
   const buttonStyle = {
     height: "2.5rem", // Ajustez la hauteur selon vos besoins
     padding: "1.75rem", // Ajustez le padding selon vos besoins
@@ -12,7 +12,7 @@ export default function Button({ onClick, backgroundColor, children }) {
   };
 
   return (
-    <button className="custom-button" style={buttonStyle} onClick={onClick}>
+    <button className="custom-button" style={buttonStyle} onClick={onClick} type={type}>
       {children}
     </button>
   );

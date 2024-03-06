@@ -12,7 +12,7 @@ exports.search = async (req, res, next) => {
           role: "system",
           content: `Voici un tableau de recettes : '${json}' 
           j'aimerais que chacune de tes réponses soit l'un des objets ou une liste d'objets contenu(s) si plusieurs objets match avec le message dans cette liste et rien d'autres.
-          Retourne toujours la réponse sous format JSON sans saut de ligne`,
+          Retourne toujours la réponse sous format JSON sans saut de ligne.`,
         },
         {
           role: "user",
@@ -22,7 +22,7 @@ exports.search = async (req, res, next) => {
       model: "gpt-3.5-turbo",
     });
 
-    console.log(completion.choices[0]);
+    res.json(completion.choices[0].message.content);
   }
 
   main();
