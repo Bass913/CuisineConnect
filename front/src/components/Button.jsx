@@ -12,7 +12,7 @@ export default function Button({ onClick, backgroundColor, children, type }) {
   };
 
   return (
-    <button className="custom-button" style={buttonStyle} onClick={onClick} type={type}>
+    <button style={buttonStyle} onClick={onClick} type={type}>
       {children}
     </button>
   );

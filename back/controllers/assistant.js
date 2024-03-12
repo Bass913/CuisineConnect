@@ -11,9 +11,9 @@ exports.search = async (req, res, next) => {
       messages: [
         {
           role: "system",
-          content: `${json}
-          Renvoies uniqument les recettes qui contiennent dans la clé 'ingredients' la saisie de l'utilisateur : ${message}. 
-          Si '${message}' apparaît dans l'un des ingrédients d'une recette alors renvoie-la sous format JSON.
+          content: `Voici un tableau de recette : '${json}'
+          Renvoies uniqument dans ce tableau les recettes qui contiennent la saisie de l'utilisateur : ${message}.
+          Si '${message}' apparaît dans l'un des ingrédients d'une recette alors renvoie la recette avec tous ses ingrédients sous format JSON.
           `,
         },
         {

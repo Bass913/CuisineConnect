@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faStar } from "@fortawesome/free-regular-svg-icons";
-import { Form } from "react-router-dom";
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 
-function RecipeDetail(recipe) {
+function RecipeDetail() {
   const numberOfStars = 5;
-
-  // Use a loop to generate an array of FontAwesome icons
+  const location = useLocation();
+  const recipe = location.state ? location.state.recipe : null;
+  
   const stars = [];
   for (let i = 0; i < numberOfStars; i++) {
     stars.push(
@@ -19,7 +20,7 @@ function RecipeDetail(recipe) {
       <SearchBar />
       <section className="w-1/2 mt-28 mx-auto">
         <div className="flex flex-col gap-10">
-          <h1 className="text-4xl font-bold">Titre de la recette</h1>
+          <h1 className="text-4xl font-bold">{recipe.title}</h1>
           <img
             src="https://source.unsplash.com/random/300x300/?2"
             alt=""
@@ -29,23 +30,13 @@ function RecipeDetail(recipe) {
             <FontAwesomeIcon icon={faClock} className="self-start" />
             &nbsp;&nbsp;<b>{recipe.duration}</b> min
           </span>
-          <p className="">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis
-            aut tempora, doloribus corrupti iure neque dolorem accusantium
-            cupiditate et, nesciunt mollitia voluptatum omnis atque
-            necessitatibus vero, libero odit placeat velit! Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Eius omnis nemo iste
-            reiciendis quo animi numquam aliquid, inventore, accusamus
-            doloremque, tempora ipsam. Culpa praesentium error nisi, odio sit
-            tempora magni!
-          </p>
+          <p className="">{recipe.description}</p>
           <div>
-            <div className="border-2 border-b-rose-500 w-1/2 p-5">
-              Ingrédient 1
-            </div>
-            <div className="border-2 border-b-rose-500 w-1/2 p-5">
-              Ingrédient 1
-            </div>
+            {recipe.ingredients.map((ingredient) => (
+              <div className="border-2 border-b-rose-500 w-1/2 p-5">
+                {ingredient.name} - {ingredient.quantity} {ingredient.unit}
+              </div>
+            ))}
           </div>
           <Form>
             <textarea
