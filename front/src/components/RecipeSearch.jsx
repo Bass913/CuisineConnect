@@ -9,10 +9,9 @@ export default function RecipeSearch({ recipe }) {
       <img
         src="https://source.unsplash.com/random/300x300/?2"
         alt=""
-        width="200"
-        height="45"
+        width="250"
       />
-      <div className="flex flex-col justify-around">
+      <div className="flex flex-col justify-around gap-7  ">
         <h2 className="text-2xl font-bold">Recette : {recipe.title}</h2>
         <span>
           <FontAwesomeIcon icon={faClock} className="self-start" />
@@ -28,7 +27,8 @@ export default function RecipeSearch({ recipe }) {
             .join(", ")}
         </p>
         <NavLink
-          to={`/recipe/${slugify(recipe.title)}`} state={{recipe: recipe}}
+          to={`/recipe/${slugify(recipe.title)}`}
+          state={{ recipe: recipe }}
           className="bg-rose-600 p-3 w-1/2 text-white text-center font-bold rounded"
         >
           Voir le détail

@@ -1,14 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faStar } from "@fortawesome/free-regular-svg-icons";
-import { Form, useLocation, useNavigate } from "react-router-dom";
+import { Form, redirect, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
+import { useEffect } from "react";
 
 function RecipeDetail() {
   const numberOfStars = 5;
+  const navigate = useNavigate();
   const location = useLocation();
   const recipe = location.state ? location.state.recipe : null;
-  
+
+  useEffect(() => {
+    if (!recipe) {
+      navigate("/");
+    }
+  }, [navigate, recipe]);
+
+  if (!recipe) {
+    return null; // or any loading state/component you want to display
+  }
+
   const stars = [];
   for (let i = 0; i < numberOfStars; i++) {
     stars.push(
