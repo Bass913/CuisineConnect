@@ -41,6 +41,18 @@ const recipeSchema = new mongoose.Schema(
       type: Array,
       required: true
     },
+    averageRating: {
+      type: Number,
+      required: false
+    },
+    reviews: {
+      type: [{
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        comment: String,
+        rating: { type: Number, required: true }
+      }],
+      required: false
+    },
   },
   {
     timestamps: true,
