@@ -25,16 +25,16 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, invalid_data: data });
 });
 
-// const startServer = async () => {
-//   try {
-//     await mongoose.connect(process.env.DB_URI);
-//     console.log("Connected to database");
-//   } catch (e) {
-//     console.error(e);
-//   }
-// };
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI);
+    console.log("Connected to database");
+  } catch (e) {
+    console.error(e);
+  }
+};
 
-// startServer();
+startServer();
 
 app.listen(port || 3000, () => {
   console.log(`Cuisine-Connect app listening on port ${port}`);

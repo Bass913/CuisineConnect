@@ -1,8 +1,13 @@
 const OpenAI = require("openai");
 const recipes = require("../data/recipeData.js");
+const Recipe = require("../models/recipe.js");
 
 exports.search = async (req, res, next) => {
   const { message } = req.body;
+  const recipes = await Recipe.find(
+    {},
+    { category: 0, createdAt: 0, updatedAt: 0, __v: 0 }
+  );
   const json = JSON.stringify(recipes);
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -11,9 +16,9 @@ exports.search = async (req, res, next) => {
       messages: [
         {
           role: "system",
-          content: `Voici un tableau de recette : '${json}'
+          content: `Voici un tableau de recette : ${json}
           Renvoies uniqument dans ce tableau les recettes qui contiennent la saisie de l'utilisateur : ${message}.
-          Si '${message}' apparaît dans l'un des ingrédients d'une recette alors renvoie la recette avec tous ses ingrédients sous format JSON.
+          Si '${message}' apparaît dans le titre, la description ou les ingrédients d'une recette alors renvoie la recette sous format JSON.
           `,
         },
         {
