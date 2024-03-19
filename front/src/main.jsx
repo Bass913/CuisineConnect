@@ -10,6 +10,7 @@ import RecipeDetail from "./pages/recipe-detail.jsx";
 import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
