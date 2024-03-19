@@ -1,15 +1,20 @@
-import "./App.css";
+import SearchBar from "./components/SearchBar.jsx";
+import Card from "./components/Card.jsx";
+import { useState } from "react";
 
 function App() {
   return (
     <>
-      <section className="mt-28">
-        <div className="text-center">
-          <input
-            className="w-1/2 h-10 p-7"
-            placeholder="Demande moi une recette de ton choix, je me ferais un plaisir de répondre à ta requête !"
-            type="text"
-          />
+      <section className="text-center flex flex-col items-center">
+        <SearchBar />
+        <h1 className="mt-20 text-2xl font-bold">
+          Découvrez nos recettes et nos recommandations
+        </h1>
+        <div className="flex gap-5 mt-10">
+          <Card />
+          <Card />
+          <Card />
+          <Card />
         </div>
       </section>
     </>
