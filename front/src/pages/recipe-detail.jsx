@@ -33,11 +33,7 @@ function RecipeDetail() {
       <section className="w-1/2 mt-28 mx-auto">
         <div className="flex flex-col gap-10">
           <h1 className="text-4xl font-bold">{recipe.title}</h1>
-          <img
-            src="https://source.unsplash.com/random/300x300/?2"
-            alt=""
-            width="400"
-          />
+          <img src={recipe.img} alt="" width="400" />
           <span>
             <FontAwesomeIcon icon={faClock} className="self-start" />
             &nbsp;&nbsp;<b>{recipe.duration}</b> min
