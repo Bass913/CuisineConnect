@@ -30,12 +30,13 @@ function RecipesList() {
             {(recipes) => (
               <>
                 <h2 className="mt-5 text-stone-400 font-bold">
-                  {recipes.length} {console.log(recipes)} résultat(s) pour {term}
+                  {recipes.length} {console.log(recipes)} résultat(s) pour{" "}
+                  {term}
                 </h2>
                 <div className="mt-10">
                   {recipes.length > 0
                     ? recipes.map((recipe, index) => (
-                        <RecipeSearch recipe={recipe} />
+                        <RecipeSearch key={index} recipe={recipe} />
                       ))
                     : null}
                 </div>
