@@ -1,5 +1,5 @@
 
-export const login = async (email, password) => {
+export const login = (email, password) => {
     return fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: {
@@ -13,7 +13,7 @@ export const logoutProfile = () => {
     localStorage.removeItem("access_token");
 };
 
-export const register = async (
+export const register = (
     username,
     email,
     password,
