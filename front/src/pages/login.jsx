@@ -1,15 +1,10 @@
-import {
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../api/auth";
 
 function Login() {
-
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +17,7 @@ function Login() {
         setFormError("Email ou mot de passe incorrect");
       }
     });
-  }
+  };
 
   return (
     <>
@@ -34,14 +29,15 @@ function Login() {
                 Connectez-vous à votre compte
               </h2>
               <p className="mt-2 text-sm leading-6 text-gray-500">
-                Vous n'êtes pas encore inscrit ?{" "}
-                <NavLink to="/register">
-                  <p className="font-semibold text-indigo-500 hover:text-indigo-700">Inscrivez-vous ici</p>
-                </NavLink>
+                Vous n'êtes pas encore inscrit ?
               </p>
+              <NavLink to="/register">
+                <p className="font-semibold text-indigo-500 hover:text-indigo-700">
+                  Inscrivez-vous ici
+                </p>
+              </NavLink>
             </div>
             <div>
-
               <div>
                 <form
                   method="POST"

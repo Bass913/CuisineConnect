@@ -1,6 +1,7 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
@@ -10,9 +11,15 @@ const assistantRouter = require("./routes/assistant.js");
 
 const app = express();
 
+app.use(cookieParser(process.env.JWT_SECRET));
+
 app.use(express.urlencoded({ extended: true, limit: "16mb" }));
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONT_URL, // Remplacez par l'URL de votre frontend
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use("/auth", authRouter);
 app.use("/recipe", recipeRouter);
 app.use("/category", categoryRouter);
