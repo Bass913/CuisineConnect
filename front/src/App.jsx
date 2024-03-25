@@ -1,6 +1,6 @@
 import SearchBar from "./components/SearchBar.jsx";
 import Card from "./components/Card.jsx";
-import { useState } from "react";
+import ChatBot from "./components/ChatBot.jsx";
 
 function App() {
   return (

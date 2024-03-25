@@ -8,7 +8,7 @@ const authRouter = require("./routes/auth.js");
 const recipeRouter = require("./routes/recipe.js");
 const categoryRouter = require("./routes/category.js");
 const assistantRouter = require("./routes/assistant.js");
-
+const chatRouter = require("./routes/chatbot.js");
 const app = express();
 
 app.use(cookieParser(process.env.JWT_SECRET));
@@ -24,6 +24,7 @@ app.use("/auth", authRouter);
 app.use("/recipe", recipeRouter);
 app.use("/category", categoryRouter);
 app.use("/assistant", assistantRouter);
+app.use("/chat", chatRouter);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
