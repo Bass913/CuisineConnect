@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faStar } from "@fortawesome/free-regular-svg-icons";
-import { Form, redirect, useLocation, useNavigate } from "react-router-dom";
+import { StarIcon, ClockIcon } from "@heroicons/react/24/outline";
+
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 import { useEffect } from "react";
@@ -23,9 +23,8 @@ function RecipeDetail() {
 
   const stars = [];
   for (let i = 0; i < numberOfStars; i++) {
-    stars.push(
-      <FontAwesomeIcon key={i} icon={faStar} className="px-1 text-yellow-500" />
-    );
+    stars.push();
+    stars.push(<StarIcon key={i} className="px-1 text-yellow-500" />);
   }
   return (
     <>
@@ -35,12 +34,13 @@ function RecipeDetail() {
           <h1 className="text-4xl font-bold">{recipe.title}</h1>
           <img src={recipe.img} alt="" width="400" />
           <span>
-            <FontAwesomeIcon icon={faClock} className="self-start" />
+            <ClockIcon className="self-start" />
             &nbsp;&nbsp;<b>{recipe.duration}</b> min
           </span>
           <p className="">{recipe.description}</p>
           <div>
             {recipe.ingredients.map((ingredient) => (
+              // eslint-disable-next-line react/jsx-key
               <div className="border-2 border-b-rose-500 w-1/2 p-5">
                 {ingredient.name} - {ingredient.quantity} {ingredient.unit}
               </div>

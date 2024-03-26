@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { FaCommentDots, FaPaperPlane } from "react-icons/fa";
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/24/outline";
 
 export default function ChatBot() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -106,8 +109,7 @@ export default function ChatBot() {
               }}
             />
             <button type="submit">
-              {" "}
-              <FaPaperPlane />{" "}
+            <PaperAirplaneIcon className="mb-1 h-6 w-6 text-gray-500" />
             </button>
           </form>
         </div>
@@ -132,7 +134,7 @@ export default function ChatBot() {
           zIndex: "1100",
         }}
       >
-        <FaCommentDots />
+        <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6 text-white" />
       </button>
     </>
   );
