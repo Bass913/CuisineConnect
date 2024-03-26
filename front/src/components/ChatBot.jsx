@@ -109,7 +109,7 @@ export default function ChatBot() {
               }}
             />
             <button type="submit">
-            <PaperAirplaneIcon className="mb-1 h-6 w-6 text-gray-500" />
+              <PaperAirplaneIcon className="mb-1 h-6 w-6 text-gray-500" />
             </button>
           </form>
         </div>
