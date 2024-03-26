@@ -1,5 +1,5 @@
 export const addFavorite = async (recipeId) => {
-    return fetch("http://localhost:3000/user/favorite", {
+    return fetch("http://localhost:3000/users/favorite", {
         method: "POST",
         credentials: "include",
         headers: {

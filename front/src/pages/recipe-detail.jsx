@@ -24,7 +24,7 @@ function RecipeDetail() {
   const stars = [];
   for (let i = 0; i < numberOfStars; i++) {
     stars.push();
-    stars.push(<StarIcon key={i} className="px-1 text-yellow-500" />);
+    stars.push(<StarIcon key={i} className="px-1 text-yellow-500 w-10" />);
   }
   return (
     <>
@@ -33,10 +33,10 @@ function RecipeDetail() {
         <div className="flex flex-col gap-10">
           <h1 className="text-4xl font-bold">{recipe.title}</h1>
           <img src={recipe.img} alt="" width="400" />
-          <span>
-            <ClockIcon className="self-start" />
+          <div className="flex items-center">
+            <ClockIcon className="self-start w-5" />
             &nbsp;&nbsp;<b>{recipe.duration}</b> min
-          </span>
+          </div>
           <p className="">{recipe.description}</p>
           <div>
             {recipe.ingredients.map((ingredient) => (
@@ -55,7 +55,7 @@ function RecipeDetail() {
               rows="7"
               placeholder="Écrire un commentaire..."
             ></textarea>
-            <p className="my-10">
+            <p className="my-10 flex items-center">
               Noter la recette &nbsp;
               {stars}
             </p>

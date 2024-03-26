@@ -29,13 +29,13 @@ export default function RecipeSearch({ recipe }) {
     <article className="border border-t-slate-300 p-10 flex mb-5 gap-10">
       <img src={recipe.img} alt="" width="250" />
       <div className="flex flex-col justify-around gap-7">
-        <HeartIcon className="self-end text-rose-500 fa-lg" />
+        <HeartIcon className="self-end text-rose-500 w-7" onClick={() => addToFavorites(recipe._id)}/>
 
         <h2 className="text-2xl font-bold">Recette : {recipe.title}</h2>
-        <span>
-          <ClockIcon className="self-start" />
+        <div className="flex items-center">
+          <ClockIcon className="self-start w-5" />
           &nbsp;&nbsp;<b>{recipe.duration}</b> min
-        </span>
+        </div>
         <p className="items-end">
           <b>Ingrédients</b> :&nbsp;
           {recipe.ingredients
