@@ -1,10 +1,30 @@
 /* eslint-disable react/prop-types */
 import { HeartIcon, ClockIcon } from "@heroicons/react/24/outline";
 
+import { useState } from "react";
+
 import { NavLink } from "react-router-dom";
 import slugify from "react-slugify";
+import { addFavorite } from "../api/user";
 
 export default function RecipeSearch({ recipe }) {
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const addToFavorites = async (recipe) => {
+    const response = await addFavorite(recipe);
+    if (response.status === 201) {
+      console.log("Recipe added to favorites");
+      setIsFavorite(!isFavorite);
+    } else {
+      console.log("Error adding recipe to favorites");
+    }
+    
+    
+  };
+
+
+
   return (
     <article className="border border-t-slate-300 p-10 flex mb-5 gap-10">
       <img src={recipe.img} alt="" width="250" />

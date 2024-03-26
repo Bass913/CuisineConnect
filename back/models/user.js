@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
       required: false,
     },
     favoriteRecipes: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: [mongoose.Schema.Types.ObjectId],
       ref: "Recipe",
       required: false,
     },

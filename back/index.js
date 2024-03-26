@@ -1,7 +1,8 @@
 require("dotenv").config();
+const cookieParser = require('cookie-parser');
+
 const cors = require("cors");
 const express = require("express");
-const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");

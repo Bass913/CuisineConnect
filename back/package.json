@@ -19,6 +19,7 @@
     "@getbrevo/brevo": "^2.0.0-beta.4",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
     "buffer-equal-constant-time": "^1.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
