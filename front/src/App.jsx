@@ -1,9 +1,5 @@
 import SearchBar from "./components/SearchBar.jsx";
 import Card from "./components/Card.jsx";
-<<<<<<< Updated upstream
-import ChatBot from "./components/ChatBot.jsx";
-=======
->>>>>>> Stashed changes
 
 function App() {
   return (
