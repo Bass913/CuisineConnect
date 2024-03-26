@@ -9,7 +9,8 @@ import { createBrowserRouter, RouterProvider, defer } from "react-router-dom";
 import RecipeDetail from "./pages/recipe-detail.jsx";
 import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
-
+import { UserProvider } from "./hooks/useUser.jsx";
+import ProtectedRoute from "./middlewares/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,20 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <App />,
+      },
+      {
+        path: "auth",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "register",
+            element: <Register />,
+          },
+        ],
       },
       {
         path: "recipes/search",
@@ -44,20 +59,14 @@ const router = createBrowserRouter([
         path: "recipe/:title",
         element: <RecipeDetail />,
       },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );

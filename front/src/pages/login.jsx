@@ -1,8 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { login } from "../api/auth";
+import { useUser } from "../hooks/useUser";
 
 function Login() {
+  const { login } = useUser();
+
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
 

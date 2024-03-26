@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
+const userRouter = require("./routes/user.js");
 const recipeRouter = require("./routes/recipe.js");
 const categoryRouter = require("./routes/category.js");
 const assistantRouter = require("./routes/assistant.js");
@@ -21,6 +22,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use("/auth", authRouter);
+app.use("/users", userRouter);
 app.use("/recipe", recipeRouter);
 app.use("/category", categoryRouter);
 app.use("/assistant", assistantRouter);
