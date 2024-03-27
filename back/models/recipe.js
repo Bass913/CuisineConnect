@@ -14,6 +14,22 @@ const ingredientSchema = new mongoose.Schema({
   }
 });
 
+const reviewsSchema = new mongoose.Schema({
+  user: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User' ,
+    required: true
+  },
+  comment: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  }
+});
+
 const recipeSchema = new mongoose.Schema(
   {
     title: {
@@ -46,12 +62,9 @@ const recipeSchema = new mongoose.Schema(
       required: false
     },
     reviews: {
-      type: [{
-        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        comment: String,
-        rating: { type: Number, required: true }
-      }],
+      type: [reviewsSchema],
       required: false
+      
     },
   },
   {

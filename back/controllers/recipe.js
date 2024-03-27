@@ -1,5 +1,7 @@
 const Recipe = require("../models/recipe.js");
 const simpleRecipeData = require("../data/Dessert.js");
+const User = require("../models/user.js");
+
 
 exports.getRecipe = async (req, res) => {
 	try {
@@ -76,33 +78,32 @@ exports.createManyRecipe = async (req, res) => {
 
 }
 
-
-
-exports.updateRecipe = async (req, res) => {
+exports.addReview = async (req, res) => {
 	try {
-		const recipeId = req.params.recipeId;
-		const { title, img, description, ingredients, tags, duration } = req.body;
+		const { comment, rating } = req.body;
+		
+		const user = await User.findById(req.user.id);
+        if (!user) return res.sendStatus(404);
 
+		const recipeId = req.params.recipeId;
 		const recipe = await Recipe.findById(recipeId);
 		if (!recipe) return res.sendStatus(404);
 
-		const recipeQuery = {};
-		if (title) recipeQuery.title = title;
-		if (img) recipeQuery.img = img;
-		if (description) recipeQuery.description = description;
-		if (ingredients) recipeQuery.ingredients = ingredients;
-		if (tags) recipeQuery.tags = tags;
-		if (duration) recipeQuery.duration = duration;
+		const existingReview = recipe.reviews.find(review => review.user.toString() === user._id && review.comment === comment);
+		if (existingReview) return res.sendStatus(409);
 
-		await Recipe.findByIdAndUpdate(recipeId, recipeQuery);
-		res.sendStatus(204);
+		recipe.reviews.push({ user: user._id, comment, rating});
+		await recipe.save();
+
+		res.sendStatus(201);
 	} catch (error) {
 		res.status(500).json({
-			error: `An error occurred while updating recipe: ${error}`,
+			error: `An error occurred while adding review: ${error}`,
 		});
 	}
 
 }
+
 
 exports.deleteRecipe = async (req, res) => {
 	try {
@@ -117,3 +118,5 @@ exports.deleteRecipe = async (req, res) => {
 	}
 
 };
+
+

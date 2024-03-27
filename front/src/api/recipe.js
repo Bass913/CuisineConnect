@@ -6,3 +6,15 @@ export const getRecipes = async () => {
         },
     }).then((response) => response.json());
 }
+
+
+export const addComment = async (recipeId, comment, rating) => {
+    return fetch(`http://localhost:3000/recipe/${recipeId}/review`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ comment, rating }),
+    }).then((response) => response);
+}

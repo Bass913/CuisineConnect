@@ -7,15 +7,23 @@ import {
     ShareIcon,
     LightBulbIcon,
 } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconFilled } from "@heroicons/react/24/solid";
 
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
+import Favorite from "../components/Favorite";
+import { addComment } from "../api/recipe";
 
 function RecipeDetail() {
     const [showModal, setShowModal] = useState(false);
     const [shoppingListText, setShoppingListText] = useState("");
+
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState(""); // État pour le commentaire
+
+
 
     const numberOfStars = 5;
     const navigate = useNavigate();
@@ -65,10 +73,37 @@ function RecipeDetail() {
     }
 
     const stars = [];
-    for (let i = 0; i < numberOfStars; i++) {
-        stars.push();
-        stars.push(<StarIcon key={i} className="px-1 text-yellow-500 w-10" />);
+    for (let i = 1; i <= numberOfStars; i++) {
+        stars.push(
+            <span key={i} onClick={() => setRating(i)}>
+                {i <= rating ? <StarIconFilled className="px-1 text-yellow-500 w-10" /> : <StarIcon className="px-1 text-yellow-500 w-10" />}
+            </span>
+        );
     }
+
+    const addReview = async(e) => {
+        e.preventDefault();
+        console.log('Commentaire et note envoyés:', { comment, rating });
+        addComment(recipe._id, comment, rating)
+            .then((response) => {
+                if (response.status === 201) {
+                    console.log("Commentaire ajouté avec succès");
+                }
+            })
+            .catch((error) => {
+                console.error("Erreur lors de l'ajout du commentaire :", error);
+            }
+        )
+        ;
+        
+    }
+
+    const handleCommentChange = (e) => {
+        setComment(e.target.value);
+    };
+
+    const isButtonDisabled = comment.trim() === "" || rating === 0;
+
     return (
         <>
             <SearchBar />
@@ -85,6 +120,7 @@ function RecipeDetail() {
                                 style={{ color: "white" }}
                             />
                         </Button>
+                        <Favorite recipe={recipe} />
                     </div>
                     <img src={recipe.img} alt="" width="400" />
                     <div className="flex items-center">
@@ -101,22 +137,31 @@ function RecipeDetail() {
                             </div>
                         ))}
                     </div>
-                    <Form>
+                    <Form
+                        method="POST"
+                        className="flex flex-col gap-5"
+                        onSubmit={addReview}
+                    >
                         <textarea
                             className="border-2 border-black p-5"
-                            name=""
-                            id=""
+                            name="comment"
+                            id="comment"
                             cols="50"
-                            rows="7"
+                            rows="4"
+                            value={comment}
                             placeholder="Écrire un commentaire..."
+                            onChange={handleCommentChange}
                         ></textarea>
                         <p className="my-10 flex items-center">
                             Noter la recette &nbsp;
                             {stars}
                         </p>
-                        <Button backgroundColor="#DD1155" type="submit">
-                            Envoyer
-                        </Button>
+                        {!isButtonDisabled && (
+                            <Button backgroundColor="#DD1155" type="submit" >
+                                Envoyer
+                            </Button>
+                        )}
+
                     </Form>
                 </div>
             </section>
@@ -188,7 +233,7 @@ function RecipeDetail() {
                                 onClick={() => {
                                     const tweetText = encodeURIComponent(
                                         "Découvrez ma liste de courses ! " +
-                                            shoppingListText
+                                        shoppingListText
                                     );
                                     const twitterLink = `https://twitter.com/intent/tweet?text=${tweetText}`;
                                     window.open(twitterLink, "_blank");
