@@ -1,65 +1,20 @@
 /* eslint-disable react/prop-types */
-import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
-import { useUser } from "../hooks/useUser";
 import {
-  HeartIcon,
   ClockIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { NavLink } from "react-router-dom";
 import slugify from "react-slugify";
-import { getUserFavorites, addFavorite, removeFavorite } from "../api/user";
 import "../RecipeSearch.css";
 import "../App.css";
+import Favorite from "./Favorite";
 
 export default function RecipeSearch({ recipe }) {
   const [showModal, setShowModal] = useState(false);
   const [accompaniments, setAccompaniments] = useState([]);
-
-  const [isFavorite, setIsFavorite] = useState(false);
-  const { user } = useUser();
-
-
-
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const favorites = await getUserFavorites();
-      if (favorites) {
-        const favoriteIds = favorites.map(favorite => favorite._id);
-        setIsFavorite(favoriteIds.includes(recipe._id));
-      }
-    }
-
-    if (user) {
-      fetchFavorites();
-    }
-  }, [user, recipe._id]);
-
-
-  const addToFavorites = async (recipe) => {
-    const response = await addFavorite(recipe);
-    if (response.status === 201) {
-      setIsFavorite(true);
-      console.log("Recipe added to favorites");
-
-    } else {
-      console.log("Error adding recipe to favorites");
-    }
-
-  };
-
-  const removeFromFavorites = async (recipe) => {
-    const response = await removeFavorite(recipe);
-    if (response.status === 200) {
-      setIsFavorite(false);
-      console.log("Recipe removed from favorites");
-    } else {
-      console.log("Error removing recipe from favorites");
-    }
-  }
 
 
   const fetchAccompaniments = async (recipe) => {
@@ -96,13 +51,7 @@ export default function RecipeSearch({ recipe }) {
       <article className="border border-t-slate-300 p-10 flex mb-5 gap-10">
         <img src={recipe.img} alt="" width="250" />
         <div className="flex flex-col justify-around gap-7">
-          {
-            user && (
-              isFavorite ?
-                <SolidHeartIcon className="self-end text-rose-500 w-7" onClick={() => removeFromFavorites(recipe._id)} />
-                : <HeartIcon className="self-end text-rose-500 w-7" onClick={() => addToFavorites(recipe._id)} />
-            )
-          }
+          <Favorite recipe={recipe} />
           <button
             onClick={() => fetchAccompaniments(recipe.title)}
             className=" rounded-full self-end text-rose-500 hover:bg-rose-200"

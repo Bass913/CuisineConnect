@@ -17,7 +17,10 @@ exports.getRecipe = async (req, res) => {
 
 exports.getRecipes = async (req, res) => {
 	try {
-		const recipes = await Recipe.find();
+		const recipes = await Recipe.find()
+			.sort({ duration: 1 })
+			.limit(4)
+			;
 		res.json(recipes);
 	} catch (err) {
 		res.status(500).json({
@@ -28,7 +31,7 @@ exports.getRecipes = async (req, res) => {
 
 exports.createRecipe = async (req, res) => {
 	try {
-		const { title, img, description, ingredients, tags, duration, category} = req.body;
+		const { title, img, description, ingredients, tags, duration, category } = req.body;
 		if (!(title && description && ingredients && duration && category)) return res.sendStatus(400);
 
 		const categoryObject = await Category.findById(categoryId);
@@ -57,7 +60,7 @@ exports.createRecipe = async (req, res) => {
 
 exports.createManyRecipe = async (req, res) => {
 	try {
-		
+
 		if (!simpleRecipeData.length) return res.sendStatus(400);
 		//await Recipe.deleteMany({});
 

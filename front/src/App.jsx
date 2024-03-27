@@ -1,5 +1,5 @@
 import SearchBar from "./components/SearchBar.jsx";
-import Card from "./components/Card.jsx";
+import LastRecipes from "./components/LastRecipes.jsx";
 
 function App() {
   return (
@@ -10,10 +10,7 @@ function App() {
           Découvrez nos recettes et nos recommandations
         </h1>
         <div className="flex gap-5 mt-10">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          <LastRecipes />
         </div>
       </section>
     </>
