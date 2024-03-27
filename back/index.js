@@ -12,7 +12,7 @@ const categoryRouter = require("./routes/category.js");
 const assistantRouter = require("./routes/assistant.js");
 const chatRouter = require("./routes/chatbot.js");
 const shoppingListRouter = require("./routes/shoppingList.js");
-
+const suggestionRouter = require("./routes/suggestion.js");
 const app = express();
 
 app.use(cookieParser(process.env.JWT_SECRET));
@@ -31,6 +31,7 @@ app.use("/category", categoryRouter);
 app.use("/assistant", assistantRouter);
 app.use("/chat", chatRouter);
 app.use("/list", shoppingListRouter);
+app.use("/suggest", suggestionRouter);
 
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;
