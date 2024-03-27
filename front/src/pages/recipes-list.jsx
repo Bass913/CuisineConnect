@@ -29,13 +29,14 @@ function RecipesList() {
 					Recettes pour la recherche {term}
 				</h1>
 				<Suspense fallback={<Loading />}>
-					{navigation.state === "loading" && <Loading />}
+					{navigation.state === "loading" && (
+						<Loading />
+					)}
 					<Await resolve={recipes}>
 						{(recipes) => (
 							<>
-								<h2 className="mt-5 text-stone-400 font-bold">
-									{recipes.length}
-									résultat(s) pour {term}
+								<h2 className="mt-5 text-stone-400 font-normal">
+									{recipes.length} résultat(s) pour {term}
 								</h2>
 								<div className="mt-10">
 									{recipes.length > 0

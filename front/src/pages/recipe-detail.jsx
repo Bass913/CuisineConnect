@@ -54,95 +54,91 @@ function RecipeDetail() {
             });
     };
 
-    const shoppingListItems = Array(shoppingListText).map((item, index) => (
-        <li key={index}>{item}</li>
-    ));
+	const shoppingListItems = Array(shoppingListText).map((item, index) => (
+		<li key={index}>{item}</li>
+	));
 
-    useEffect(() => {
-        if (!recipe) {
-            navigate("/");
-        }
-    }, [navigate, recipe]);
+	useEffect(() => {
+		if (!recipe) {
+			navigate("/");
+		}
+	}, [navigate, recipe]);
 
     if (!recipe) {
         return null; // or any loading state/component you want to display
     }
 
-    const stars = [];
-    for (let i = 0; i < numberOfStars; i++) {
-        stars.push();
-        stars.push(<StarIcon key={i} className="px-1 text-yellow-500 w-10" />);
-    }
-    return (
-        <>
-            <SearchBar />
-            <section className="w-1/2 mt-28 mx-auto">
-                <div className="flex flex-col gap-10">
-                    <h1 className="text-4xl font-bold">{recipe.title}</h1>{" "}
-                    <div>
-                        <Button
-                            onClick={generateShoppingList}
-                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
-                        >
-                            <LightBulbIcon
-                                className="h-5 w-5"
-                                style={{ color: "white" }}
-                            />
-                            Liste de courses &nbsp;
-                        </Button>
-                    </div>
-                    <img src={recipe.img} alt="" width="400" />
-                    <div className="flex items-center">
-                        <ClockIcon className="self-start w-5" />
-                        &nbsp;&nbsp;<b>{recipe.duration}</b> min
-                    </div>
-                    <p className="">{recipe.description}</p>
-                    <div>
-                        {recipe.ingredients.map((ingredient) => (
-                            // eslint-disable-next-line react/jsx-key
-                            <div className="border-2 border-b-rose-500 w-1/2 p-5">
-                                {ingredient.name} - {ingredient.quantity}{" "}
-                                {ingredient.unit}
-                            </div>
-                        ))}
-                    </div>
-                    <Form>
-                        <textarea
-                            className="border-2 border-black p-5"
-                            name=""
-                            id=""
-                            cols="50"
-                            rows="7"
-                            placeholder="Écrire un commentaire..."
-                        ></textarea>
-                        <p className="my-10 flex items-center">
-                            Noter la recette &nbsp;
-                            {stars}
-                        </p>
-                        <Button backgroundColor="#DD1155" type="submit">
-                            Envoyer
-                        </Button>
-                    </Form>
-                </div>
-            </section>
-            <>
-                {isLoading && (
-                    <div className="loader-overlay">
-                        <div className="loader"></div>
-                    </div>
-                )}
-                <Modal
-                    isOpen={showModal}
-                    onClose={() => setShowModal(false)}
-                    title={`Liste de courses  ${recipe?.title}`}
-                    shoppingListText={shoppingListText}
-                    buttonsToShow={["email", "copy", "socialMedia"]}
-                >
-                    {shoppingListItems}
-                </Modal>
-            </>
-        </>
-    );
+	const stars = [];
+	for (let i = 0; i < numberOfStars; i++) {
+		stars.push();
+		stars.push(<StarIcon key={i} className="px-1 text-yellow-500 w-10" />);
+	}
+	return (
+		<>
+			<div className="w-full h-2O md:h-32 flex items-center justify-center px-10 sm:px-5 mt-20">
+				<SearchBar />
+			</div>
+			<section className="w-1/2 mt-28 mx-auto">
+				<div className="flex flex-col gap-10">
+					<h1 className="text-4xl font-bold">{recipe.title}</h1>{" "}
+					<div>
+						<Button
+							onClick={generateShoppingList}
+							className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
+						>
+							<LightBulbIcon
+								className="h-5 w-5"
+								style={{ color: "white" }}
+							/>
+							Liste de courses &nbsp;
+						</Button>
+					</div>
+					<img src={recipe.img} alt="" width="400" />
+					<div className="flex items-center">
+						<ClockIcon className="self-start w-5" />
+						&nbsp;&nbsp;<b>{recipe.duration}</b> min
+					</div>
+					<p className="">{recipe.description}</p>
+					<div>
+						{recipe.ingredients.map((ingredient) => (
+							// eslint-disable-next-line react/jsx-key
+							<div className="border-2 border-b-rose-500 w-1/2 p-5">
+								{ingredient.name} - {ingredient.quantity}{" "}
+								{ingredient.unit}
+							</div>
+						))}
+					</div>
+					<Form>
+						<textarea
+							className="border-2 border-black p-5"
+							name=""
+							id=""
+							cols="50"
+							rows="7"
+							placeholder="Écrire un commentaire..."
+						></textarea>
+						<p className="my-10 flex items-center">
+							Noter la recette &nbsp;
+							{stars}
+						</p>
+						<Button backgroundColor="#DD1155" type="submit">
+							Envoyer
+						</Button>
+					</Form>
+				</div>
+			</section>
+
+			<Modal
+				isOpen={showModal}
+				onClose={() => setShowModal(false)}
+				title={`Liste de courses  ${recipe?.title}`}
+				shoppingListText={shoppingListText}
+				buttonsToShow={["email", "copy", "socialMedia"]}
+			>
+				{shoppingListItems}
+			</Modal>
+		</>
+	);
 }
 
 export default RecipeDetail;
