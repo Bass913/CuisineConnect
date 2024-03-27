@@ -1,0 +1,19 @@
+
+.accompaniments {
+    margin-top: 1rem; 
+    padding-left: 1rem;
+}
+
+.accompaniments h3 {
+    font-size: 1.25rem;
+    font-weight: bold; 
+}
+
+.accompaniments ul {
+    list-style-type: disc; 
+    padding-left: 1.5rem; 
+}
+
+.accompaniments li {
+    margin-bottom: 0.5rem;
+}
