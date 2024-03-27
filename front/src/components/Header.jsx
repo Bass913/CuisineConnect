@@ -24,7 +24,7 @@ export default function Header({ user }) {
       {user ? (
         <div className="flex items-center gap-5">
           <nav className="flex gap-5">
-            <NavLink to="/profile">
+            <NavLink to="/profile/favorite-recipes">
               <Button className="hover:bg-gray-100 p-4 rounded text-sm flex items-center gap-2 text-gray-800">
                 <UserCircleIcon className="w-5 h-5" />
                 {user.username}

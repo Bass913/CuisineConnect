@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Chatbot from "../components/ChatBot.jsx";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -10,19 +10,19 @@ export default function Navbar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getUserInfo();
+      getUserInfo();
     };
     fetchData();
   }, []);
 
-	return (
-		<>
-			<Header user={user} />
-			<main>
-				<Outlet />
-				<Chatbot />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <div className="flex flex-col justify-between h-lvh">
+      <Header user={user} />
+      <main>
+        <Outlet />
+        <Chatbot />
+      </main>
+      <Footer />
+    </div>
+  );
 }
