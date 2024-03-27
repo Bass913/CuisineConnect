@@ -7,6 +7,7 @@ const {
   removePreferences,
   addFavorite,
   removeFavorite,
+  getUserFavorites,
   getUserInfo,
 } = require("../controllers/user.js");
 
@@ -18,5 +19,6 @@ router.post("/preferences", addPreferences);
 router.delete("/preferences", removePreferences);
 router.post("/favorite", isAuth, addFavorite);
 router.delete("/favorite", isAuth, removeFavorite);
+router.get("/favorite", isAuth, getUserFavorites);
 
 module.exports = router;

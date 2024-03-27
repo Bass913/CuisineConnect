@@ -68,6 +68,10 @@ exports.removeFavorite = async (req, res) => {
     if (!recipeId) return res.sendStatus(400);
     const user = await User.findById(req.user.id);
     if (!user) return res.sendStatus(404);
+    const existingFavorite = user.favoriteRecipes.find(
+        (favorite) => favorite.toString() === recipeId
+    );
+    if (!existingFavorite) return res.sendStatus(409);
     user.favoriteRecipes.pull(recipeId);
     await user.save();
     res.sendStatus(200);
@@ -77,3 +81,16 @@ exports.removeFavorite = async (req, res) => {
     });
   }
 };
+
+exports.getUserFavorites = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).populate('favoriteRecipes');
+        if (!user) return res.sendStatus(404);
+        res.status(200).json(user.favoriteRecipes);
+    }
+    catch (error) {
+        res.status(500).json({
+            error: `An error occurred while getting favorites: ${error}`,
+        });
+    }
+}

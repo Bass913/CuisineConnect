@@ -1,27 +1,57 @@
 /* eslint-disable react/prop-types */
 import { HeartIcon, ClockIcon } from "@heroicons/react/24/outline";
+import {HeartIcon as SolidHeartIcon} from "@heroicons/react/24/solid";
+import { useUser } from "../hooks/useUser";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { NavLink } from "react-router-dom";
 import slugify from "react-slugify";
-import { addFavorite } from "../api/user";
+import { getUserFavorites, addFavorite, removeFavorite } from "../api/user";
 
 export default function RecipeSearch({ recipe }) {
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const { user } = useUser();
+
+
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const favorites = await getUserFavorites();
+      if (favorites) {
+        const favoriteIds = favorites.map(favorite => favorite._id);
+        setIsFavorite(favoriteIds.includes(recipe._id));
+      }
+    }
+
+    if (user) {
+      fetchFavorites();
+    }
+  }, [user, recipe._id]);
+
 
   const addToFavorites = async (recipe) => {
     const response = await addFavorite(recipe);
     if (response.status === 201) {
+      setIsFavorite(true);
       console.log("Recipe added to favorites");
-      setIsFavorite(!isFavorite);
+
     } else {
       console.log("Error adding recipe to favorites");
     }
     
-    
   };
+
+  const removeFromFavorites = async (recipe) => {
+    const response = await removeFavorite(recipe);
+    if (response.status === 200) {
+      setIsFavorite(false);
+      console.log("Recipe removed from favorites");
+    } else {
+      console.log("Error removing recipe from favorites");
+    }
+  }
 
 
 
@@ -29,7 +59,13 @@ export default function RecipeSearch({ recipe }) {
     <article className="border border-t-slate-300 p-10 flex mb-5 gap-10">
       <img src={recipe.img} alt="" width="250" />
       <div className="flex flex-col justify-around gap-7">
-        <HeartIcon className="self-end text-rose-500 w-7" onClick={() => addToFavorites(recipe._id)}/>
+        {
+          user && (
+          isFavorite ? 
+            <SolidHeartIcon className="self-end text-rose-500 w-7" onClick={() => removeFromFavorites(recipe._id)}/> 
+          : <HeartIcon className="self-end text-rose-500 w-7" onClick={() => addToFavorites(recipe._id)}/>
+          )
+        }
 
         <h2 className="text-2xl font-bold">Recette : {recipe.title}</h2>
         <div className="flex items-center">
