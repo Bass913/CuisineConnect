@@ -56,6 +56,10 @@ module.exports = {
         128: "32rem",
         256: "64rem",
       },
+      height: {
+        128: "32rem",
+        256: "64rem",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

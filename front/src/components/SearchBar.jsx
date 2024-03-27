@@ -19,7 +19,7 @@ export default function SearchBar() {
 			/>
 			<Button
 				type="submit"
-				className="text-white font-normal bg-rose-600 hover:bg-rose-700 h-10 rounded p-3 ml-2 absolute right-3 z-10 flex items-center text-sm"
+				className="text-white font-normal bg-rose-600 hover:bg-rose-700 h-10 rounded p-3 ml-2 absolute right-2 z-10 flex items-center text-sm"
 			>
 				Rechercher
 			</Button>

@@ -51,6 +51,7 @@ export default function ChatBot() {
 
 	const messageStyle = (isUser) => ({
 		maxWidth: "80%",
+		width: "fit-content",
 		padding: "10px",
 		margin: "5px 0",
 		borderRadius: "10px",
@@ -60,6 +61,7 @@ export default function ChatBot() {
 		marginRight: isUser ? "10px" : "auto",
 		wordBreak: "break-word",
 		marginBottom: "12px",
+		fontSize: "0.9rem",
 	});
 
 	return (
