@@ -18,19 +18,20 @@ export default function Modal({
     return (
         <div className="modal">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>
+                <span className="close " onClick={onClose}>
                     &times;
                 </span>
-                <h1
+                <h3
                     style={{
                         textAlign: "center",
                         fontWeight: "bold",
                         color: "black",
-                        fontSize: "24px",
+                        fontSize: "15px",
+                        paddingTop: "30px",
                     }}
                 >
                     {title}
-                </h1>
+                </h3>
                 <br />
                 <ul>{children}</ul>
                 <div className="modal-actions">
@@ -45,7 +46,7 @@ export default function Modal({
                                 const mailtoLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
                                 window.location.href = mailtoLink;
                             }}
-                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
+                            className="button test text-white bg-rose-600 hover:bg-rose-600 p-3 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
                         >
                             <EnvelopeOpenIcon className="w-5 h-5" />
                             Envoyer par Email
@@ -69,7 +70,7 @@ export default function Modal({
                                         }
                                     );
                             }}
-                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
+                            className="button text-white bg-green-500 hover:bg-green-600 p-4 rounded text-sm flex items-center gap-2"
                         >
                             <DocumentIcon className="h-5 w-5" />
                             Copier
@@ -85,7 +86,7 @@ export default function Modal({
                                 const twitterLink = `https://twitter.com/intent/tweet?text=${tweetText}`;
                                 window.open(twitterLink, "_blank");
                             }}
-                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
+                            className="button text-white bg-blue-800 hover:bg-blue-600 p-4 rounded text-sm flex items-center gap-2"
                         >
                             <ShareIcon className="h-5 w-5" />
                             Partager

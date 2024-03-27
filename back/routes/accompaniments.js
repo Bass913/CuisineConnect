@@ -1,5 +1,5 @@
 const express = require("express");
-const { suggestAccompaniments } = require("../controllers/suggestion");
+const { suggestAccompaniments } = require("../controllers/accompaniments");
 
 const router = express.Router();
 
