@@ -2,15 +2,13 @@ import "../App.css";
 import {
     StarIcon,
     ClockIcon,
-    DocumentIcon,
-    EnvelopeOpenIcon,
-    ShareIcon,
     LightBulbIcon,
 } from "@heroicons/react/24/outline";
 
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
+import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
 
 function RecipeDetail() {
@@ -40,7 +38,6 @@ function RecipeDetail() {
 
                 navigator.clipboard.writeText(listText);
                 setShoppingListText(data.response);
-
                 setShowModal(true);
             })
             .catch((error) => {
@@ -51,9 +48,10 @@ function RecipeDetail() {
             });
     };
 
-    const shoppingListItems = shoppingListText
-        .split("\n")
-        .map((item, index) => <li key={index}>{item}</li>);
+    const shoppingListItems = Array(shoppingListText).map((item, index) => (
+        <li key={index}>{item}</li>
+    ));
+
     useEffect(() => {
         if (!recipe) {
             navigate("/");
@@ -74,16 +72,17 @@ function RecipeDetail() {
             <SearchBar />
             <section className="w-1/2 mt-28 mx-auto">
                 <div className="flex flex-col gap-10">
-                    <h1 className="text-4xl font-bold">{recipe.title}</h1> <div>
+                    <h1 className="text-4xl font-bold">{recipe.title}</h1>{" "}
+                    <div>
                         <Button
-                            backgroundColor="rgb(221, 17, 85)"
                             onClick={generateShoppingList}
+                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
                         >
-                            Générer la liste de courses &nbsp;
                             <LightBulbIcon
                                 className="h-5 w-5"
                                 style={{ color: "white" }}
                             />
+                            Liste de courses &nbsp;
                         </Button>
                     </div>
                     <img src={recipe.img} alt="" width="400" />
@@ -121,86 +120,15 @@ function RecipeDetail() {
                 </div>
             </section>
 
-            {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span
-                            className="close"
-                            onClick={() => setShowModal(false)}
-                        >
-                            &times;
-                        </span>
-                        <h1
-                            style={{
-                                textAlign: "center",
-                                fontWeight: "bold",
-                                color: "black",
-                                fontSize: "24px",
-                            }}
-                        >
-                            Recette de {recipe.title}
-                        </h1>
-                        <br></br>
-                        <ul>
-                            {shoppingListItems.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </ul>
-                        <div className="modal-actions">
-                            <Button
-                                onClick={() => {
-                                    const emailSubject = encodeURIComponent(
-                                        "Ma liste de courses"
-                                    );
-                                    const emailBody =
-                                        encodeURIComponent(shoppingListText);
-                                    const mailtoLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
-                                    window.location.href = mailtoLink;
-                                }}
-                            >
-                                <EnvelopeOpenIcon className="h-5 w-5" />
-                                &nbsp; Envoyer par Email
-                            </Button>
-                            <Button
-                                backgroundColor="rgb(221, 17, 85)"
-                                onClick={() => {
-                                    navigator.clipboard
-                                        .writeText(shoppingListText)
-                                        .then(
-                                            () => {
-                                                alert(
-                                                    "Liste de courses copiée dans le presse-papier !"
-                                                );
-                                            },
-                                            () => {
-                                                alert(
-                                                    "Erreur lors de la copie dans le presse-papier."
-                                                );
-                                            }
-                                        );
-                                }}
-                            >
-                                <DocumentIcon className="h-5 w-5" />
-                                &nbsp; Copier
-                            </Button>
-                            <Button
-                                backgroundColor="#4CAF50"
-                                onClick={() => {
-                                    const tweetText = encodeURIComponent(
-                                        "Découvrez ma liste de courses ! " +
-                                            shoppingListText
-                                    );
-                                    const twitterLink = `https://twitter.com/intent/tweet?text=${tweetText}`;
-                                    window.open(twitterLink, "_blank");
-                                }}
-                            >
-                                <ShareIcon className="h-5 w-5" />
-                                &nbsp; Partager
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <Modal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                title={`Liste de courses  ${recipe?.title}`}
+                shoppingListText={shoppingListText}
+                buttonsToShow={["email", "copy", "socialMedia"]}
+            >
+                {shoppingListItems}
+            </Modal>
         </>
     );
 }
