@@ -15,6 +15,7 @@ import "../css/Loader.css";
 function RecipeDetail() {
     const [showModal, setShowModal] = useState(false);
     const [shoppingListText, setShoppingListText] = useState("");
+
     const [isLoading, setIsLoading] = useState(false);
 
     const numberOfStars = 5;
@@ -144,9 +145,9 @@ function RecipeDetail() {
                     <ul>
                         {shoppingListItems.map((ingredient, index) => (
                             <li key={index}>
-                                {index > 0
-                                    ? `- ${ingredient.trim()}`
-                                    : ingredient.trim()}
+                                {index === 0
+                                    ? ingredient.trim()
+                                    : `- ${ingredient.trim()}`}
                             </li>
                         ))}
                     </ul>
