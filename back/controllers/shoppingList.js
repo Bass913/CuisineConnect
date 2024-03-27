@@ -18,7 +18,7 @@ exports.generateIntelligentShoppingList = async (req, res) => {
                 },
             ],
         });
-        res.json({ response: completion.choices[0].message.content });
+        res.json(completion.choices[0].message.content);
     }
     main().catch((err) => res.status(500).json({ error: err.message }));
 };

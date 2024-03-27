@@ -17,25 +17,11 @@ import "../css/RecipeSearch.css";
 
 export default function RecipeSearch({ recipe }) {
     const [showModal, setShowModal] = useState(false);
-    const [accompaniments, setAccompaniments] = useState([]);
+    const [accompaniments, setAccompaniments] = useState("");
     const [isFavorite, setIsFavorite] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const { user } = useUser();
-
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            const favorites = await getUserFavorites();
-            if (favorites) {
-                const favoriteIds = favorites.map((favorite) => favorite._id);
-                setIsFavorite(favoriteIds.includes(recipe._id));
-            }
-        };
-
-        if (user) {
-            fetchFavorites();
-        }
-    }, [user, recipe._id]);
 
     const addToFavorites = async (recipe) => {
         const response = await addFavorite(recipe);
@@ -72,7 +58,7 @@ export default function RecipeSearch({ recipe }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                setAccompaniments(data.response);
+                setAccompaniments(data);
                 setShowModal(true);
             })
 
@@ -90,6 +76,20 @@ export default function RecipeSearch({ recipe }) {
     const accompanimentsListItems = accompaniments.startsWith("-")
         ? accompaniments.slice(1).trim().split("-")
         : accompaniments.split("-");
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            const favorites = await getUserFavorites();
+            if (favorites) {
+                const favoriteIds = favorites.map((favorite) => favorite._id);
+                setIsFavorite(favoriteIds.includes(recipe._id));
+            }
+        };
+
+        if (user) {
+            fetchFavorites();
+        }
+    }, [user, recipe._id]);
 
     return (
         <>
@@ -173,9 +173,9 @@ export default function RecipeSearch({ recipe }) {
                     <ul>
                         {accompanimentsListItems.map((ingredient, index) => (
                             <li key={index}>
-                                {index > 0
-                                    ? `- ${ingredient.trim()}`
-                                    : ingredient.trim()}
+                                {index === 0
+                                    ? ingredient.trim()
+                                    : `- ${ingredient.trim()}`}
                             </li>
                         ))}
                     </ul>

@@ -40,7 +40,7 @@ function RecipeDetail() {
                 const listText = data.response;
 
                 navigator.clipboard.writeText(listText);
-                setShoppingListText(data.response);
+                setShoppingListText(data);
                 setShowModal(true);
             })
             .catch((error) => {
