@@ -1,8 +1,8 @@
 import "../App.css";
 import {
-	StarIcon,
-	ClockIcon,
-	LightBulbIcon,
+    StarIcon,
+    ClockIcon,
+    LightBulbIcon,
 } from "@heroicons/react/24/outline";
 
 import { Form, useLocation, useNavigate } from "react-router-dom";
@@ -10,31 +10,34 @@ import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
+import "../css/Loader.css";
 
 function RecipeDetail() {
-	const [showModal, setShowModal] = useState(false);
-	const [shoppingListText, setShoppingListText] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [shoppingListText, setShoppingListText] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-	const numberOfStars = 5;
-	const navigate = useNavigate();
-	const location = useLocation();
-	const recipe = location.state ? location.state.recipe : null;
-	const generateShoppingList = () => {
-		const ingredientsText = recipe.ingredients
-			.map((ing) => `${ing.quantity} ${ing.unit} ${ing.name}`)
-			.join(", ");
+    const numberOfStars = 5;
+    const navigate = useNavigate();
+    const location = useLocation();
+    const recipe = location.state ? location.state.recipe : null;
+    const generateShoppingList = () => {
+        setIsLoading(true);
+        const ingredientsText = recipe.ingredients
+            .map((ing) => `${ing.quantity} ${ing.unit} ${ing.name}`)
+            .join(", ");
 
-		fetch("http://localhost:3000/list/generate", {
-			method: "POST",
-			credentials: "include",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ shoppingList: ingredientsText }),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				const listText = data.response;
+        fetch("http://localhost:3000/list/generate", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ shoppingList: ingredientsText }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                const listText = data.response;
 
                 navigator.clipboard.writeText(listText);
                 setShoppingListText(data.response);
@@ -45,6 +48,9 @@ function RecipeDetail() {
                     "Erreur lors de la récupération de la liste de courses : ",
                     error
                 );
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
 
@@ -58,9 +64,9 @@ function RecipeDetail() {
         }
     }, [navigate, recipe]);
 
-	if (!recipe) {
-		return null; // or any loading state/component you want to display
-	}
+    if (!recipe) {
+        return null; // or any loading state/component you want to display
+    }
 
     const stars = [];
     for (let i = 0; i < numberOfStars; i++) {
@@ -119,16 +125,22 @@ function RecipeDetail() {
                     </Form>
                 </div>
             </section>
-
-            <Modal
-                isOpen={showModal}
-                onClose={() => setShowModal(false)}
-                title={`Liste de courses  ${recipe?.title}`}
-                shoppingListText={shoppingListText}
-                buttonsToShow={["email", "copy", "socialMedia"]}
-            >
-                {shoppingListItems}
-            </Modal>
+            <>
+                {isLoading && (
+                    <div className="loader-overlay">
+                        <div className="loader"></div>
+                    </div>
+                )}
+                <Modal
+                    isOpen={showModal}
+                    onClose={() => setShowModal(false)}
+                    title={`Liste de courses  ${recipe?.title}`}
+                    shoppingListText={shoppingListText}
+                    buttonsToShow={["email", "copy", "socialMedia"]}
+                >
+                    {shoppingListItems}
+                </Modal>
+            </>
         </>
     );
 }
