@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import Button from "../components/Button.jsx";
 import Chatbot from "../components/ChatBot.jsx";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 import Header from "../components/Header.jsx";
 
