@@ -96,6 +96,7 @@ exports.login = async (req, res) => {
     const payload = {
       username: user.username,
       id: user._id,
+      favoriteRecipes: user.favoriteRecipes,
     };
 
     const options = {
@@ -115,7 +116,7 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res, next) => {
-  const token = req.headers.cookie.split("=")[1];
+  const token = req.cookies[process.env.JWT_NAME];
   const user = jwt.verify(token, process.env.JWT_SECRET);
   if (user) {
     res.clearCookie(process.env.JWT_NAME);
