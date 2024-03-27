@@ -11,7 +11,7 @@ export default function Header({ user }) {
     <header className="h-20 flex items-center justify-between px-5 mx-auto fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 dark:border-b border-gray-200">
       <div>
         <NavLink to="/">
-          <img src="logo.svg" alt="logo" className="h-10" />
+          <img src="/logo.svg" alt="logo" className="h-10" />
         </NavLink>
       </div>
       {user ? (

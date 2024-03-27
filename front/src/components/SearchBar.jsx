@@ -13,7 +13,7 @@ export default function SearchBar() {
 			<input
 				type="text"
 				aria-label="search recipes"
-				className="w-full h-10 p-7 border border-gray-600 rounded focus:border-rose-600 focus:outline-none relative pl-10 pr-20 hover:border-rose-600 hover:bg-gray-50 text-sm text-gray-600 font-normal placeholder-gray-500 transition-all duration-200"
+				className="w-full h-10 p-7 border border-gray-600 rounded bg-white/85 focus:border-rose-600 focus:outline-none relative pl-10 pr-20 hover:border-rose-600 hover:bg-gray-50 text-sm text-gray-600 font-normal placeholder-gray-500 transition-all duration-200"
 				placeholder="Rechercher une recette"
 				name="term"
 			/>
