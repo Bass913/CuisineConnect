@@ -8,6 +8,8 @@ const {
     createManyRecipe,
     deleteRecipe,
     addReview,
+    getAverageRating,
+    getReviews
 } = require("../controllers/recipe.js");
 
 const router = express.Router();
@@ -18,6 +20,8 @@ router.post("/", createRecipe);
 router.post("/many", createManyRecipe);
 router.delete("/:recipeId", deleteRecipe);
 router.post("/:recipeId/review",isAuth, addReview);
+router.get("/:recipeId/averageRating", getAverageRating);
+router.get("/:recipeId/reviews", getReviews);
 
 
 module.exports = router;

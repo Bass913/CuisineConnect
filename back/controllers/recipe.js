@@ -89,16 +89,50 @@ exports.addReview = async (req, res) => {
 		const recipe = await Recipe.findById(recipeId);
 		if (!recipe) return res.sendStatus(404);
 
-		const existingReview = recipe.reviews.find(review => review.user.toString() === user._id && review.comment === comment);
+		const existingReview = recipe.reviews.find(review => review.user.toString() === user._id.toString() && review.comment === comment);
 		if (existingReview) return res.sendStatus(409);
 
 		recipe.reviews.push({ user: user._id, comment, rating});
+
+		const totalRating = recipe.reviews.reduce((acc, review) => acc + review.rating, 0);
+  		const averageRating = totalRating / recipe.reviews.length;
+		
+		recipe.averageRating = averageRating;
+
 		await recipe.save();
 
 		res.sendStatus(201);
 	} catch (error) {
 		res.status(500).json({
 			error: `An error occurred while adding review: ${error}`,
+		});
+	}
+
+}
+
+exports.getAverageRating = async (req, res) => {
+	try {
+		const recipeId = req.params.recipeId;
+		const recipe = await Recipe.findById(recipeId);
+		if (!recipe) return res.sendStatus(404);
+		res.json(recipe.averageRating);
+	} catch (error) {
+		res.status(500).json({
+			error: `An error occurred while fetching average rating: ${error}`,
+		});
+	}
+
+}
+
+exports.getReviews = async (req, res) => {
+	try {
+		const recipeId = req.params.recipeId;
+		const recipe = await Recipe.findById(recipeId);
+		if (!recipe) return res.sendStatus(404);
+		res.json(recipe.reviews);
+	} catch (error) {
+		res.status(500).json({
+			error: `An error occurred while fetching reviews: ${error}`,
 		});
 	}
 
