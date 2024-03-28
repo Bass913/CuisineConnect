@@ -14,7 +14,6 @@ const SearchBar = ({ initialValue }) => {
         useSpeechToText({ continuous: true });
 
     const startStopListening = () => {
-        console.log("isListening valeur dans VoiceInput", isListening);
         isListening ? stopVoiceInput() : startListening();
     };
 
