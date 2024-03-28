@@ -6,7 +6,7 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 
 export default function Navbar() {
-  const { getUserInfo, user } = useUser();
+    const { getUserInfo, user } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {

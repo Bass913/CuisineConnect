@@ -1,22 +1,26 @@
 const OpenAI = require("openai");
 
+let messageHistory = [
+    {
+        role: "system",
+        content: `Tu es un chef étoilé au guide Michelin avec une quinzaine d'années d'expérience dans le métier, ayant gagné plusieurs concours culinaires à l'international. Réponds aux questions des utilisateurs avec ton expertise.`,
+    },
+];
 exports.chatWithChef = async (req, res, next) => {
     const { message } = req.body;
     const openai = new OpenAI(process.env.OPENAI_API_KEY);
-
+    messageHistory.push({
+        role: "user",
+        content: message,
+    });
     async function main() {
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
-            messages: [
-                {
-                    role: "system",
-                    content: `Tu es un chef étoilé au guide Michelin avec une quinzaine d'années d'expérience dans le métier, ayant gagné plusieurs concours culinaires à l'international. Réponds aux questions des utilisateurs avec ton expertise.`,
-                },
-                {
-                    role: "user",
-                    content: message,
-                },
-            ],
+            messages: messageHistory,
+        });
+        messageHistory.push({
+            role: "assistant",
+            content: completion.choices[0].message.content,
         });
         res.json({ response: completion.choices[0].message.content });
     }

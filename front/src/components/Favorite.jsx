@@ -1,70 +1,63 @@
 import { useUser } from "../hooks/useUser";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 
-import {
-    HeartIcon,
-} from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 import { useState, useEffect } from "react";
 import { getUserFavorites, addFavorite, removeFavorite } from "../api/user";
 
-
-
 export default function Favorite({ recipe }) {
-    const [isFavorite, setIsFavorite] = useState(false);
-    const { user } = useUser();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { user } = useUser();
 
-
-
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            const favorites = await getUserFavorites();
-            if (favorites) {
-                const favoriteIds = favorites.map(favorite => favorite._id);
-                setIsFavorite(favoriteIds.includes(recipe._id));
-            }
-        }
-
-        if (user) {
-            fetchFavorites();
-        }
-    }, [recipe._id]);
-
-
-    const addToFavorites = async (recipe) => {
-        const response = await addFavorite(recipe);
-        if (response.status === 201) {
-            setIsFavorite(true);
-            console.log("Recipe added to favorites");
-
-        } else {
-            console.log("Error adding recipe to favorites");
-        }
-
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const favorites = await getUserFavorites();
+      if (favorites) {
+        const favoriteIds = favorites.map((favorite) => favorite._id);
+        setIsFavorite(favoriteIds.includes(recipe._id));
+      }
     };
 
-    const removeFromFavorites = async (recipe) => {
-        const response = await removeFavorite(recipe);
-        if (response.status === 200) {
-            setIsFavorite(false);
-            console.log("Recipe removed from favorites");
-        } else {
-            console.log("Error removing recipe from favorites");
-        }
+    if (user) {
+      fetchFavorites();
     }
+  }, [recipe._id]);
 
+  const addToFavorites = async (recipe) => {
+    const response = await addFavorite(recipe);
+    if (response.status === 201) {
+      setIsFavorite(true);
+      console.log("Recipe added to favorites");
+    } else {
+      console.log("Error adding recipe to favorites");
+    }
+  };
 
+  const removeFromFavorites = async (recipe) => {
+    const response = await removeFavorite(recipe);
+    if (response.status === 200) {
+      setIsFavorite(false);
+      console.log("Recipe removed from favorites");
+    } else {
+      console.log("Error removing recipe from favorites");
+    }
+  };
 
-    return (
-        <>
-            {
-                user && (
-                    isFavorite ?
-                        <SolidHeartIcon className="self-end text-rose-500 w-7" onClick={() => removeFromFavorites(recipe._id)} />
-                        : <HeartIcon className="self-end text-rose-500 w-7" onClick={() => addToFavorites(recipe._id)} />
-                )
-            }
-
-        </>
-    );
+  return (
+    <>
+      {user &&
+        (isFavorite ? (
+          <SolidHeartIcon
+            className="self-end text-rose-500 w-7 cursor-pointer"
+            onClick={() => removeFromFavorites(recipe._id)}
+          />
+        ) : (
+          <HeartIcon
+            className="self-end text-rose-500 w-7 cursor-pointer"
+            onClick={() => addToFavorites(recipe._id)}
+          />
+        ))}
+    </>
+  );
 }
