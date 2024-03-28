@@ -30,15 +30,13 @@ export default function Header({ user }) {
                 {user.username}
               </Button>
             </NavLink>
-            <NavLink to="/auth/login">
-              <Button
-                className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
-                onClick={() => onClick()}
-              >
-                <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
-                Se déconnecter
-              </Button>
-            </NavLink>
+            <Button
+              className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
+              onClick={() => onClick()}
+            >
+              <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
+              Se déconnecter
+            </Button>
           </nav>
         </div>
       ) : (

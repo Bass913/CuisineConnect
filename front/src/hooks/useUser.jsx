@@ -7,7 +7,17 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true); // Ajouter l'état de chargement
 
   const login = async (email, password) => {
-    // Logique de connexion
+    return fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    }).then(async (response) => {
+      await getUserInfo();
+      return response;
+    });
   };
 
   const getUserInfo = async () => {
@@ -30,7 +40,17 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    // Logique de déconnexion
+    try {
+      const response = await fetch("http://localhost:3000/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Something went wrong, request failed!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
