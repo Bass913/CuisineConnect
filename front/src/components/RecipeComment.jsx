@@ -6,15 +6,28 @@ import { Form } from "react-router-dom";
 import Button from "./Button";
 import { addComment } from "../api/recipe";
 import { useUser } from "../hooks/useUser";
+import { getAllComments } from "../api/recipe";
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function Comment({ recipe }) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
+
+    const [allComments, setAllComments] = useState([]);
+
+    useEffect(() => {
+        getAllComments(recipe._id)
+            .then((comments) => {
+                setAllComments(comments);
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la récupération des commentaires :", error);
+            });
+    }, [recipe._id]);
 
     const { user } = useUser();
 
@@ -65,32 +78,45 @@ export default function Comment({ recipe }) {
     return (
         <>
             {user && (
-                <Form
-                    method="POST"
-                    className="flex flex-col gap-5"
-                    onSubmit={addReview}
-                >
-                    <textarea
-                        className="border-2 border-black p-5"
-                        name="comment"
-                        id="comment"
-                        cols="50"
-                        rows="4"
-                        value={comment}
-                        placeholder="Écrire un commentaire..."
-                        onChange={handleCommentChange}
-                    ></textarea>
-                    <p className="my-10 flex items-center">
-                        Noter la recette &nbsp;
-                        {stars}
-                    </p>
-                    {!isButtonDisabled && (
-                        <Button backgroundColor="#DD1155" type="submit" >
-                            Envoyer
-                        </Button>
-                    )}
+                <>
+                    <Form
+                        method="POST"
+                        className="flex flex-col gap-5"
+                        onSubmit={addReview}
+                    >
+                        <textarea
+                            className="border-2 border-black p-4"
+                            name="comment"
+                            id="comment"
+                            cols="50"
+                            rows="4"
+                            value={comment}
+                            placeholder="Écrire un commentaire..."
+                            onChange={handleCommentChange}
+                        ></textarea>
+                        <p className="flex items-center">
+                            Noter la recette &nbsp;
+                            {stars}
+                        </p>
+                        {!isButtonDisabled && (
 
-                </Form>
+                            <Button className="text-white bg-rose-600 hover:bg-rose-600 py-3 rounded text-sm w-36" type="submit" >
+                                Envoyer
+                            </Button>
+                        )}
+
+                    </Form>
+                    <div>
+                        <h2>Commentaires</h2>
+                        {allComments.map((comment) => (
+                            <div key={comment.id}>
+                                <h3>{comment.username}</h3>
+                                <p>{comment.comment}</p>
+                                <p>{comment.createdAT}</p>
+                            </div>
+                        ))}
+                    </div>
+                </>
             )}
 
         </>

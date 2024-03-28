@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { create } = require("./user");
 const ingredientSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -11,13 +12,13 @@ const ingredientSchema = new mongoose.Schema({
   unit: {
     type: String,
     required: false
-  }
+  },
 });
 
 const reviewsSchema = new mongoose.Schema({
-  user: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User' ,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   comment: {
@@ -27,6 +28,10 @@ const reviewsSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
@@ -64,7 +69,7 @@ const recipeSchema = new mongoose.Schema(
     reviews: {
       type: [reviewsSchema],
       required: false
-      
+
     },
   },
   {

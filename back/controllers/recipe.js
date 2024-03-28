@@ -124,18 +124,30 @@ exports.getAverageRating = async (req, res) => {
 
 }
 
-exports.getReviews = async (req, res) => {
-	try {
-		const recipeId = req.params.recipeId;
-		const recipe = await Recipe.findById(recipeId);
-		if (!recipe) return res.sendStatus(404);
-		res.json(recipe.reviews);
-	} catch (error) {
-		res.status(500).json({
-			error: `An error occurred while fetching reviews: ${error}`,
-		});
-	}
 
+
+exports.getReviews = async (req, res) => {
+    try {
+        const recipeId = req.params.recipeId;
+        const recipe = await Recipe.findById(recipeId).populate('reviews.user', 'username'); // Ajoutez .populate() pour récupérer les utilisateurs correspondants
+
+        if (!recipe) return res.sendStatus(404);
+
+        const reviewsWithUsername = recipe.reviews.map(review => {
+            return {
+				id: review._id,
+                comment: review.comment,
+                username: review.user.username, 
+                createdAt: review.createdAt
+            };
+        });
+
+        res.json(reviewsWithUsername);
+    } catch (error) {
+        res.status(500).json({
+            error: `An error occurred while fetching reviews: ${error}`,
+        });
+    }
 }
 
 
