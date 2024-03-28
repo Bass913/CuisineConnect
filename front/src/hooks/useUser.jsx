@@ -2,9 +2,9 @@ import { createContext, useState, useContext } from "react";
 
 export const UserContext = createContext();
 
-// 2. Créer un Provider
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Ajouter l'état de chargement
 
   const login = async (email, password) => {
     return fetch("http://localhost:3000/auth/login", {
@@ -22,32 +22,46 @@ export const UserProvider = ({ children }) => {
 
   const getUserInfo = async () => {
     try {
+      setLoading(true); // Définir loading à true au début de la récupération
       const response = await fetch("http://localhost:3000/users/me", {
         credentials: "include",
       });
       const userData = await response.json();
       setUser(userData);
+      setLoading(false); // Définir loading à false une fois les données récupérées
       if (!response.ok) {
         throw new Error("Something went wrong, request failed!");
       }
     } catch (err) {
       console.log(err);
       setUser(null);
+      setLoading(false); // Définir loading à false en cas d'erreur
     }
   };
 
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Something went wrong, request failed!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, getUserInfo, login, logout }}>
+    <UserContext.Provider
+      value={{ user, setUser, loading, getUserInfo, login, logout }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
 
-// 3. Utiliser le contexte
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {

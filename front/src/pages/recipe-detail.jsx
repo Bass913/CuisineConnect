@@ -2,9 +2,6 @@ import "../App.css";
 import {
     StarIcon,
     ClockIcon,
-    DocumentIcon,
-    EnvelopeOpenIcon,
-    ShareIcon,
     LightBulbIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconFilled } from "@heroicons/react/24/solid";
@@ -12,9 +9,11 @@ import { StarIcon as StarIconFilled } from "@heroicons/react/24/solid";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
+import Modal from "../components/Modal";
 import { useEffect, useState } from "react";
 import Favorite from "../components/Favorite";
 import { addComment } from "../api/recipe";
+import "../css/Loader.css";
 
 function RecipeDetail() {
     const [showModal, setShowModal] = useState(false);
@@ -24,12 +23,14 @@ function RecipeDetail() {
     const [comment, setComment] = useState(""); // État pour le commentaire
 
 
+    const [isLoading, setIsLoading] = useState(false);
 
     const numberOfStars = 5;
     const navigate = useNavigate();
     const location = useLocation();
     const recipe = location.state ? location.state.recipe : null;
     const generateShoppingList = () => {
+        setIsLoading(true);
         const ingredientsText = recipe.ingredients
             .map((ing) => `${ing.quantity} ${ing.unit} ${ing.name}`)
             .join(", ");
@@ -47,8 +48,7 @@ function RecipeDetail() {
                 const listText = data.response;
 
                 navigator.clipboard.writeText(listText);
-                setShoppingListText(data.response);
-
+                setShoppingListText(data);
                 setShowModal(true);
             })
             .catch((error) => {
@@ -56,12 +56,16 @@ function RecipeDetail() {
                     "Erreur lors de la récupération de la liste de courses : ",
                     error
                 );
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     };
 
-    const shoppingListItems = shoppingListText
-        .split("\n")
-        .map((item, index) => <li key={index}>{item}</li>);
+    const shoppingListItems = shoppingListText.startsWith("-")
+        ? shoppingListText.slice(1).trim().split("-")
+        : shoppingListText.split("-");
+
     useEffect(() => {
         if (!recipe) {
             navigate("/");
@@ -106,19 +110,22 @@ function RecipeDetail() {
 
     return (
         <>
-            <SearchBar />
+            <div className="w-full h-2O md:h-32 flex items-center justify-center px-10 sm:px-5 mt-20">
+                <SearchBar />
+            </div>
             <section className="w-1/2 mt-28 mx-auto">
                 <div className="flex flex-col gap-10">
-                    <h1 className="text-4xl font-bold">{recipe.title}</h1> <div>
+                    <h1 className="text-4xl font-bold">{recipe.title}</h1>{" "}
+                    <div>
                         <Button
-                            backgroundColor="rgb(221, 17, 85)"
                             onClick={generateShoppingList}
+                            className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
                         >
-                            Générer la liste de courses &nbsp;
                             <LightBulbIcon
                                 className="h-5 w-5"
                                 style={{ color: "white" }}
                             />
+                            Liste de courses &nbsp;
                         </Button>
                         <Favorite recipe={recipe} />
                     </div>
@@ -166,86 +173,30 @@ function RecipeDetail() {
                 </div>
             </section>
 
-            {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span
-                            className="close"
-                            onClick={() => setShowModal(false)}
-                        >
-                            &times;
-                        </span>
-                        <h1
-                            style={{
-                                textAlign: "center",
-                                fontWeight: "bold",
-                                color: "black",
-                                fontSize: "24px",
-                            }}
-                        >
-                            Recette de {recipe.title}
-                        </h1>
-                        <br></br>
-                        <ul>
-                            {shoppingListItems.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </ul>
-                        <div className="modal-actions">
-                            <Button
-                                onClick={() => {
-                                    const emailSubject = encodeURIComponent(
-                                        "Ma liste de courses"
-                                    );
-                                    const emailBody =
-                                        encodeURIComponent(shoppingListText);
-                                    const mailtoLink = `mailto:?subject=${emailSubject}&body=${emailBody}`;
-                                    window.location.href = mailtoLink;
-                                }}
-                            >
-                                <EnvelopeOpenIcon className="h-5 w-5" />
-                                &nbsp; Envoyer par Email
-                            </Button>
-                            <Button
-                                backgroundColor="rgb(221, 17, 85)"
-                                onClick={() => {
-                                    navigator.clipboard
-                                        .writeText(shoppingListText)
-                                        .then(
-                                            () => {
-                                                alert(
-                                                    "Liste de courses copiée dans le presse-papier !"
-                                                );
-                                            },
-                                            () => {
-                                                alert(
-                                                    "Erreur lors de la copie dans le presse-papier."
-                                                );
-                                            }
-                                        );
-                                }}
-                            >
-                                <DocumentIcon className="h-5 w-5" />
-                                &nbsp; Copier
-                            </Button>
-                            <Button
-                                backgroundColor="#4CAF50"
-                                onClick={() => {
-                                    const tweetText = encodeURIComponent(
-                                        "Découvrez ma liste de courses ! " +
-                                        shoppingListText
-                                    );
-                                    const twitterLink = `https://twitter.com/intent/tweet?text=${tweetText}`;
-                                    window.open(twitterLink, "_blank");
-                                }}
-                            >
-                                <ShareIcon className="h-5 w-5" />
-                                &nbsp; Partager
-                            </Button>
-                        </div>
+            <>
+                {isLoading && (
+                    <div className="loader-overlay">
+                        <div className="loader"></div>
                     </div>
-                </div>
-            )}
+                )}
+                <Modal
+                    isOpen={showModal}
+                    onClose={() => setShowModal(false)}
+                    title={`Liste de courses  ${recipe?.title}`}
+                    shoppingListText={shoppingListText}
+                    buttonsToShow={["email", "copy", "socialMedia"]}
+                >
+                    <ul>
+                        {shoppingListItems.map((ingredient, index) => (
+                            <li key={index}>
+                                {index === 0
+                                    ? ingredient.trim()
+                                    : `- ${ingredient.trim()}`}
+                            </li>
+                        ))}
+                    </ul>
+                </Modal>
+            </>
         </>
     );
 }

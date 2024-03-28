@@ -11,6 +11,8 @@ import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
 import { UserProvider } from "./hooks/useUser.jsx";
 import ProtectedRoute from "./middlewares/ProtectedRoute.jsx";
+import FavoriteRecipes from "./pages/favorite-recipes.jsx";
+import { getUserFavorites } from "./api/user.js";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,6 @@ const router = createBrowserRouter([
       },
       {
         path: "auth",
-        element: <ProtectedRoute />,
         children: [
           {
             path: "login",
@@ -36,7 +37,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "recipes/search",
         element: <RecipesList />,
@@ -59,6 +59,16 @@ const router = createBrowserRouter([
       {
         path: "recipe/:title",
         element: <RecipeDetail />,
+      },
+      {
+        path: "profile",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "favorite-recipes",
+            element: <FavoriteRecipes />,
+          },
+        ],
       },
     ],
   },

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { NavLink , useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { register } from "../api/auth";
 function Register() {
-
   const [state, setState] = useState({
     username: "",
     email: "",
     password: "",
     error: null,
   });
-  
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +18,6 @@ function Register() {
     const password = e.target.password.value;
 
     register(username, email, password).then((response) => {
-      console.log(response);
       if (response.status === 200) {
         navigate("/login");
       } else {
@@ -27,8 +26,6 @@ function Register() {
         });
       }
     });
-
-    
   };
 
   return (
@@ -42,9 +39,10 @@ function Register() {
               </h2>
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 Vous avez déjà un compte ?{" "}
-                
                 <NavLink to="/login">
-                  <p className="font-semibold text-indigo-500 hover:text-indigo-700">Connectez-vous ici</p>
+                  <p className="font-semibold text-indigo-500 hover:text-indigo-700">
+                    Connectez-vous ici
+                  </p>
                 </NavLink>
               </p>
             </div>

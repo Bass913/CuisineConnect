@@ -1,16 +1,14 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
 
 const ProtectedRoute = () => {
-  const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, loading } = useUser();
 
-  useEffect(() => {
-    if (user) navigate("/");
-  });
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  return <Outlet />;
+  return !user ? <Navigate to="/" /> : <Outlet />;
 };
 
 export default ProtectedRoute;
