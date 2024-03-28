@@ -27,7 +27,7 @@ export default function Comment({ recipe }) {
             .catch((error) => {
                 console.error("Erreur lors de la récupération des commentaires :", error);
             });
-    }, [recipe._id]);
+    }, [setAllComments, recipe._id]);
 
     const { user } = useUser();
 
@@ -45,16 +45,21 @@ export default function Comment({ recipe }) {
 
     const addReview = async (e) => {
         e.preventDefault();
-        console.log('Commentaire et note envoyés:', { comment, rating });
         addComment(recipe._id, comment, rating)
             .then((response) => {
                 if (response.status === 201) {
-                    console.log("Commentaire ajouté avec succès");
                     setComment("");
                     setRating(0);
+                    const newComment = {
+                        id: Math.random().toString(36).substr(2, 9), 
+                        comment: comment,
+                        rating: rating,
+                        username: user.username, 
+                        createdAt: new Date().toISOString(), 
+                    };
+                    setAllComments(prevComments => [newComment, ...prevComments]);
                     alert("Merci pour votre commentaire")
                 } else if (response.status === 409) {
-                    console.log("Commentaire déjà existant");
                     alert("Vous avez déjà commenté cette recette");
                 }
             })
@@ -72,6 +77,10 @@ export default function Comment({ recipe }) {
 
     const isButtonDisabled = comment.trim() === "" || rating === 0;
 
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('fr-FR', options);
+      }
 
 
 
@@ -107,15 +116,24 @@ export default function Comment({ recipe }) {
 
                     </Form>
                     <div>
-                        <h2>Commentaires</h2>
                         {allComments.map((comment) => (
-                            <div key={comment.id}>
-                                <h3>{comment.username}</h3>
-                                <p>{comment.comment}</p>
-                                <p>{comment.createdAT}</p>
+
+                            <div key={comment.id} className="border-b-2 border-gray-300 mb-6 pb-4" name="comment168253" id="comment168253">
+                                <p className=" text-gray-900 mb-2">
+                                    {comment.comment}
+                                </p>
+                                <div className="inline-block font-bold text-gray-800 text-xs uppercase tracking-widest mb-2 mr-2">
+                                    {comment.username}
+                                    <span className="font-normal text-gray-800 mx-2">•</span>
+                                </div>
+                                <div className="inline-block font-bold text-gray-800 text-xs uppercase tracking-widest mb-2">
+                                    {formatDate(comment.createdAt)}
+                                </div>
                             </div>
+
+
                         ))}
-                    </div>
+                    </div >
                 </>
             )}
 

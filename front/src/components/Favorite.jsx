@@ -28,7 +28,6 @@ export default function Favorite({ recipe }) {
     const response = await addFavorite(recipe);
     if (response.status === 201) {
       setIsFavorite(true);
-      console.log("Recipe added to favorites");
     } else {
       console.log("Error adding recipe to favorites");
     }
@@ -38,7 +37,6 @@ export default function Favorite({ recipe }) {
     const response = await removeFavorite(recipe);
     if (response.status === 200) {
       setIsFavorite(false);
-      console.log("Recipe removed from favorites");
     } else {
       console.log("Error removing recipe from favorites");
     }
