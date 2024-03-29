@@ -48,7 +48,7 @@ function App() {
 			/>
 
 			{searchTerm.length ? (
-				<section className="mt-28 mx-auto min-h-64 max-w-4xl w-full">
+				<section className="my-28 mx-auto min-h-64 max-w-4xl w-full">
 					<NavLink to="/">
 						<p className="text-rose-500">Accueil</p>
 					</NavLink>
