@@ -14,23 +14,30 @@ const SearchBar = ({ initialValue }) => {
         useSpeechToText({ continuous: true });
 
     const startStopListening = () => {
-        isListening ? stopVoiceInput() : startListening();
+        if (isListening) {
+            stopVoiceInput();
+        } else {
+            setSearch("");
+            startListening();
+        }
     };
 
     const stopVoiceInput = () => {
-        setSearch(transcript);
         stopListening();
     };
 
     useEffect(() => {
-        setSearch(initialValue);
-    }, [initialValue]);
+        if (isListening) {
+            setSearch(transcript);
+        }
+    }, [transcript, isListening]);
 
     const handleChange = (e) => {
         setSearch(e.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (!search) {
             navigate("/");
             return;
@@ -38,7 +45,10 @@ const SearchBar = ({ initialValue }) => {
         navigate(`/?search=${search}`);
     };
     return (
-        <div className="flex items-center justify-center mt-28 relative w-full md:w-128">
+        <div
+            onSubmit={handleSubmit}
+            className="flex items-center justify-center mt-28 relative w-full md:w-128"
+        >
             <MagnifyingGlassIcon className="w-5 h-5 text-gray-600 absolute  left-3 z-10" />
             <input
                 type="text"
@@ -62,7 +72,7 @@ const SearchBar = ({ initialValue }) => {
                 Rechercher
             </Button>
             <MicrophoneIcon
-                onClick={() => startStopListening()}
+                onClick={startStopListening}
                 className="w-5 h-5 cursor-pointer text-gray-600 absolute right-28 z-10"
             />{" "}
         </div>
