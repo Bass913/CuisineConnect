@@ -1,16 +1,22 @@
-import Button from "./Button";
 import {
     EnvelopeOpenIcon,
     DocumentIcon,
     ShareIcon,
+    UserPlusIcon,
+    UserMinusIcon,
 } from "@heroicons/react/24/outline";
+import Button from "./Button";
 import "../css/Modal.css";
+
 export default function Modal({
     isOpen,
     onClose,
     title,
     children,
     shoppingListText,
+    counter,
+    increaseCounter,
+    decreaseCounter,
     buttonsToShow = [],
 }) {
     if (!isOpen) return null;
@@ -21,6 +27,7 @@ export default function Modal({
                 <span className="close " onClick={onClose}>
                     &times;
                 </span>
+
                 <h3
                     style={{
                         textAlign: "center",
@@ -32,7 +39,27 @@ export default function Modal({
                 >
                     {title}
                 </h3>
+                {buttonsToShow.includes("email") && (
+                    <div className="pt-4 flex justify-center gap-3">
+                        <UserMinusIcon
+                            onClick={() => counter > 1 && decreaseCounter()}
+                            className={`h-6 w-6 ${
+                                counter > 1
+                                    ? "text-rose-600 cursor-pointer"
+                                    : "text-gray-400 cursor-not-allowed"
+                            }`}
+                        />
+
+                        <h1 className="font-bold">{counter}</h1>
+                        <UserPlusIcon
+                            onClick={increaseCounter}
+                            className="h-6 w-6 text-rose-600"
+                        />
+                    </div>
+                )}
+
                 <br />
+
                 <ul>{children}</ul>
                 <div className="modal-actions">
                     {buttonsToShow.includes("email") && (
