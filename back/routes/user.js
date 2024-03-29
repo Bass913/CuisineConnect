@@ -14,9 +14,8 @@ const {
 const router = express.Router();
 
 router.get("/me", isAuth, getUserInfo);
-
-router.post("/preferences", addPreferences);
-router.delete("/preferences", removePreferences);
+router.post("/preferences", isAuth, addPreferences);
+router.delete("/preferences", isAuth, removePreferences);
 router.post("/favorite", isAuth, addFavorite);
 router.delete("/favorite", isAuth, removeFavorite);
 router.get("/favorite", isAuth, getUserFavorites);

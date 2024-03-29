@@ -96,7 +96,7 @@ exports.login = async (req, res) => {
     const payload = {
       username: user.username,
       id: user._id,
-      favoriteRecipes: user.favoriteRecipes,
+      dietaryPreferences: user.dietaryPreferences,
     };
 
     const options = {
