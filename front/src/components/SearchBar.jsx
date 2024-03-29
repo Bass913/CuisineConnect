@@ -18,13 +18,7 @@ const SearchBar = ({ initialValue }) => {
     };
 
     const stopVoiceInput = () => {
-        setSearch(
-            (preVal) =>
-                preVal +
-                (transcript.length
-                    ? (preVal.length ? " " : "") + transcript
-                    : "")
-        );
+        setSearch(transcript);
         stopListening();
     };
 
@@ -54,10 +48,16 @@ const SearchBar = ({ initialValue }) => {
                 name="search"
                 onChange={handleChange}
                 disabled={isListening}
+                value={search}
             />
             <Button
-                className="text-white font-normal bg-rose-600 hover:bg-rose-700 h-10 rounded p-3 ml-2 absolute right-2 z-10 flex items-center text-sm"
+                className={`text-white font-normal h-10 rounded p-3 ml-2 absolute right-2 z-10 flex items-center text-sm ${
+                    search && !isListening
+                        ? "bg-rose-600 hover:bg-rose-700"
+                        : "bg-gray-500 cursor-not-allowed"
+                }`}
                 onClick={handleSubmit}
+                disabled={!search || isListening}
             >
                 Rechercher
             </Button>
