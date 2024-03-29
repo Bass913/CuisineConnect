@@ -35,7 +35,6 @@ exports.search = async (req, res, next) => {
       console.log("Invalid Token, user may be not logged in.");
     }
   }
-  console.log(content);
 
   async function main() {
     const completion = await openai.chat.completions.create({
