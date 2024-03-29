@@ -52,7 +52,7 @@ export default function RecipeSearch({ recipe }) {
 
 	return (
 		<>
-			<article className="border flex mb-5 gap-5 shadow-md rounded-md bg-white hover:bg-gray-50 overflow-hidden h-52 py-32">
+			<article className="border flex mb-5 gap-5 shadow-md rounded-md bg-white hover:bg-gray-50 overflow-hidden h-52">
 				<img src={recipe.img} alt="" className="w-1/2 object-cover" />
 				<div className="flex flex-col justify-between w-1/2 p-5">
 					<div className="flex justify-between gap-5 w-full">
