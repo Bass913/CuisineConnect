@@ -22,6 +22,7 @@
     "react-router-dom": "^6.22.2",
     "react-slugify": "^3.0.3",
     "react-speech-recognition": "^3.10.0",
+    "react-toastify": "^10.0.5",
     "react-use-clipboard": "^1.0.9",
     "regenerator-runtime": "^0.14.1",
     "sort-by": "^0.0.2",
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
-    "@types/react": "^18.2.56",
+    "@types/react": "^18.2.70",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",

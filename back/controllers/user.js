@@ -1,4 +1,5 @@
 const User = require("../models/user.js");
+const jwt = require("jsonwebtoken");
 
 exports.getUserInfo = async (req, res, next) => {
   try {
@@ -19,6 +20,19 @@ exports.addPreferences = async (req, res) => {
     if (!user) return res.sendStatus(404);
     user.dietaryPreferences.push(dietaryPreferences);
     await user.save();
+    const payload = {
+      username: user.username,
+      id: user._id,
+      dietaryPreferences: user.dietaryPreferences,
+    };
+
+    const options = {
+      expiresIn: "30d",
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, options);
+
+    res.cookie(process.env.JWT_NAME, token, { httpOnly: true });
     res.sendStatus(201);
   } catch (error) {
     res.status(500).json({
@@ -35,6 +49,19 @@ exports.removePreferences = async (req, res) => {
     if (!user) return res.sendStatus(404);
     user.dietaryPreferences.pull(dietaryPreferences);
     await user.save();
+    const payload = {
+      username: user.username,
+      id: user._id,
+      dietaryPreferences: user.dietaryPreferences,
+    };
+
+    const options = {
+      expiresIn: "30d",
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, options);
+
+    res.cookie(process.env.JWT_NAME, token, { httpOnly: true });
     res.sendStatus(200);
   } catch (error) {
     res.status(500).json({

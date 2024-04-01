@@ -13,7 +13,7 @@ const useSpeechToText = (options) => {
         recognitionRef.current = new window.webkitSpeechRecognition();
         const recognition = recognitionRef.current;
         recognition.interimResults = options.interimResults || true;
-        recognition.lang = options.lang || "fr-FR";
+        recognition.lang = "fr-FR";
         recognition.continuous = options.continuous || false;
 
         if ("webkitSpeechGrammarList" in window) {
@@ -42,7 +42,6 @@ const useSpeechToText = (options) => {
 
         recognition.onend = () => {
             setIsListening(false);
-            setTranscript("");
         };
         return () => {
             recognition.stop();

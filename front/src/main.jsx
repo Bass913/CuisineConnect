@@ -11,6 +11,7 @@ import Register from "./pages/register.jsx";
 import { UserProvider } from "./hooks/useUser.jsx";
 import ProtectedRoute from "./middlewares/ProtectedRoute.jsx";
 import FavoriteRecipes from "./pages/favorite-recipes.jsx";
+import Preferences from "./pages/preferences.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
           {
             path: "favorite-recipes",
             element: <FavoriteRecipes />,
+          },
+          {
+            path: "preferences",
+            element: <Preferences />,
           },
         ],
       },

@@ -6,7 +6,7 @@ import { ClockIcon, StarIcon } from "@heroicons/react/24/outline";
 
 export default function Card({ recipe }) {
 	return (
-		<div className="flex flex-col justify-between max-w-xs rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100">
+		<div className="flex flex-col justify-between max-w-xs rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100 hover:shadow-lg hover:bg-gray-50 transition-all duration-300 hover:scale-105">
 			<img
 				src={recipe.img}
 				alt=""
