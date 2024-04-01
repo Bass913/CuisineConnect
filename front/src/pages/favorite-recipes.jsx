@@ -1,20 +1,35 @@
 import { useEffect, useState } from "react";
-import { getUserFavorites } from "../api/user";
+import { getUserFavorites, removeFavorite } from "../api/user";
 import { NavLink } from "react-router-dom";
 import slugify from "react-slugify";
 import {
 	HeartIcon as SolidHeartIcon,
 	EyeIcon,
+	TrashIcon
 } from "@heroicons/react/24/solid";
 import SearchBarSection from "../components/SearchBarSection";
 
 export default function FavoriteRecipes() {
 	const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
-	useEffect(() => {
+	const removeFromFavorites = async (recipe) => {
+		const response = await removeFavorite(recipe);
+		if (response.status === 200) {
+			getFavorites();
+		} else {
+			console.log("Error removing recipe from favorites");
+		}
+	};
+
+	const getFavorites = async () => {
 		getUserFavorites().then((res) => {
 			setFavoriteRecipes(res);
 		});
+	}
+
+
+	useEffect(() => {
+		getFavorites();
 	}, []);
 
 	return (
@@ -71,6 +86,12 @@ export default function FavoriteRecipes() {
 											>
 												<EyeIcon className=" text-rose-500 w-8 p-1" />
 											</NavLink>
+										</td>
+										<td className="p-6 text-right">
+											<TrashIcon
+												onClick={() => removeFromFavorites(recipe._id)}
+												className=" text-rose-500 w-8 p-1"
+											/>
 										</td>
 									</tr>
 								))}
