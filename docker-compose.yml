@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  backend:
+    build: ./back
+    ports:
+      - "3000:3000"
+    environment:
+      DB_URI: mongodb+srv://...
+      SECRET_KEY: Y!-uZU...
+      # et ainsi de suite pour les autres variables d'environnement
+
+  frontend:
+    build: ./front
+    ports:
+      - "5173:3000"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - backend
+      - frontend
