@@ -1,10 +1,9 @@
 export default function Loading() {
   return (
     <div className="relative flex justify-center items-center py-10">
-      <div className="absolute animate-spin rounded-full h-32 w-32 mt-10 border-t-4 border-b-4 border-purple-500"></div>
-      <img
-        src="https://www.svgrepo.com/show/509009/avatar-thinking-3.svg"
-        className="rounded-full h-28 w-28"
+      <iframe
+        src="https://lottie.host/embed/f70b8947-6a5a-4e27-a9f8-6525956ca59a/v8txyn24UG.json"
+        className="rounded-full h-40 w-40"
         alt="Loading..."
       />
     </div>

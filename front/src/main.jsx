@@ -4,7 +4,7 @@ import "./index.css";
 import Root from "./layouts/root.jsx";
 import ErrorPage from "./pages/error-page.jsx";
 import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider, defer } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeDetail from "./pages/recipe-detail.jsx";
 import Login from "./pages/login.jsx";
 import Register from "./pages/register.jsx";
