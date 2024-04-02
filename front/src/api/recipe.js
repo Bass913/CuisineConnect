@@ -7,9 +7,9 @@ export const getRecipes = async () => {
   }).then((response) => response.json());
 };
 
-export const getRecommendation = async (recipe) => {
+export const getRecommendation = async (recipeId) => {
   return fetch(
-    `http://localhost:3000/recipe/${recipe._id}/recommendations`
+    `http://localhost:3000/recipe/${recipeId}/recommendations`
   ).then((response) => response.json());
 };
 

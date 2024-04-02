@@ -97,7 +97,7 @@ exports.addReview = async (req, res) => {
 		const totalRating = recipe.reviews.reduce((acc, review) => acc + review.rating, 0);
   		const averageRating = totalRating / recipe.reviews.length;
 		
-		recipe.averageRating = averageRating;
+		recipe.averageRating = averageRating.toFixed(1);
 
 		await recipe.save();
 

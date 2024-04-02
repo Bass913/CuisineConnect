@@ -19,7 +19,7 @@ function Register() {
 
     register(username, email, password).then((response) => {
       if (response.status === 200) {
-        navigate("/login");
+        navigate("/auth/login");
       } else {
         response.json().then((data) => {
           setState({ ...state, error: data.error });

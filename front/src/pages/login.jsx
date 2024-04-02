@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 
 function Login() {
-  const { login } = useUser();
+  const { login, user } = useUser();
 
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
@@ -21,6 +21,8 @@ function Login() {
     });
   };
 
+  
+
   return (
     <>
       <section className="w-1/2 mt-28 mx-auto">
@@ -33,7 +35,7 @@ function Login() {
               <p className="mt-2 text-sm leading-6 text-gray-500">
                 Vous n'êtes pas encore inscrit ?
               </p>
-              <NavLink to="/register">
+              <NavLink to="/auth/register">
                 <p className="font-semibold text-indigo-500 hover:text-indigo-700">
                   Inscrivez-vous ici
                 </p>

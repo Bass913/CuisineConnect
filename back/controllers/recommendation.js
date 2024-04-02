@@ -10,7 +10,9 @@ exports.recommendation = async (req, res) => {
   );
   const recipesJson = JSON.stringify(recipes);
 
-  const prompt = `Voici un tableau de recettes : ${recipesJson}. Renvoies 3 recettes maximum de ce tableau au format JSON qui a des similitudes avec une recette donnée. Je te fournis l'identifiant de la recette pour que tu puisse l'identifier dans le tableau de recettes.`;
+  const recipe = await Recipe.findById(recipeId);
+
+  const prompt = `Voici un tableau de recettes : ${recipesJson}. Renvoies 3 recettes maximum de ce tableau au format JSON qui a des similitudes avec cette recette : ${JSON.stringify(recipe)}, Ta réponse doit être un tableau d'objet json.`;
   const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
   async function main() {
@@ -23,7 +25,7 @@ exports.recommendation = async (req, res) => {
         },
         {
           role: "user",
-          content: recipeId,
+          content: JSON.stringify(recipe),
         },
       ],
     });

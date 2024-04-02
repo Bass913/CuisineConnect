@@ -22,7 +22,7 @@ export default function Favorite({ recipe }) {
     if (user) {
       fetchFavorites();
     }
-  }, [recipe._id]);
+  }, []);
 
   const addToFavorites = async (recipe) => {
     const response = await addFavorite(recipe);

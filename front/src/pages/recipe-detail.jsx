@@ -78,15 +78,13 @@ function RecipeDetail() {
       navigate("/");
     }
     const fetchRecommendations = async () => {
-      const recommendations = await getRecommendation(recipe);
+      const recommendations = await getRecommendation(recipe._id);
       setRecommendations(recommendations);
     };
     fetchRecommendations();
-  }, [navigate, recipe, counter]);
+  }, []);
 
-  if (!recipe) {
-    return null;
-  }
+  
 
   return (
     <div className="bg-gray-100 overflow-x-hidden">

@@ -27,9 +27,9 @@ exports.search = async (req, res, next) => {
       const user = jwt.verify(token, process.env.JWT_SECRET);
 
       if (user && user.dietaryPreferences) {
-        content += ` Cependant, tu ne renverras pas les recettes contenant l'une des contre-indications alimentaires suivantes : ${user.dietaryPreferences.join(
+        content += ` Cependant, tu ne renverras pas les recettes contenant le ou les ingrédients suivants : ${user.dietaryPreferences.join(
           ", "
-        )}. Même si "${message}" apparaît dans le title, la description ou les ingredients de ces recettes, tu ne les renverras pas`;
+        )}.`;
       }
     } catch (error) {
       console.log("Invalid Token, user may be not logged in.");

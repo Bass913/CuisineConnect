@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import slugify from "react-slugify";
-import Favorite from "./Favorite";
 import { ClockIcon, StarIcon } from "@heroicons/react/24/outline";
 
 export default function Card({ recipe }) {
@@ -26,7 +25,7 @@ export default function Card({ recipe }) {
                 <StarIcon className="self-start w-4 mt-0.5 mr-1 text-rose-500 fill-current" />
                 <span className="text-rose-500 text-sm">
                   {" "}
-                  {recipe.averageRating}
+                  {recipe.averageRating.toFixed(1)}
                 </span>
               </div>
             </div>
@@ -39,7 +38,6 @@ export default function Card({ recipe }) {
         >
           Voir le détail
         </NavLink>
-        <Favorite recipe={recipe} />
       </div>
     </div>
   );
