@@ -28,6 +28,15 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    dietaryPreferences: {
+      type: [String],
+      required: false,
+    },
+    favoriteRecipes: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Recipe",
+      required: false,
+    },
   },
   {
     timestamps: true,

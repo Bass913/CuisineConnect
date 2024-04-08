@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  const token = req.headers.cookie.split("=")[1];
+  const token = req.cookies[process.env.JWT_NAME];
   if (!token) return res.sendStatus(401);
   const user = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -10,11 +10,12 @@ module.exports = (req, res, next) => {
     return res.sendStatus(401);
   }
 
-  const { username, id } = user;
+  const { username, id, dietaryPreferences } = user;
 
   const response = {
     username,
     id,
+    dietaryPreferences,
   };
 
   req.user = response;

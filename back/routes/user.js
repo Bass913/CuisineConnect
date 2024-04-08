@@ -1,18 +1,23 @@
 const express = require("express");
+
+const isAuth = require("../middlewares/isAuth.js");
+
 const {
-  getUser,
-  getUsers,
-  createUser,
-  updateUser,
-  deleteUser,
-} = require("../routes/userRoutes.js");
+  addPreferences,
+  removePreferences,
+  addFavorite,
+  removeFavorite,
+  getUserFavorites,
+  getUserInfo,
+} = require("../controllers/user.js");
 
 const router = express.Router();
 
-router.get("/:userId", getUser);
-router.get("/", getUsers);
-router.post("/", createUser);
-router.patch("/:userId", updateUser);
-router.delete("/:userId", deleteUser);
+router.get("/me", isAuth, getUserInfo);
+router.post("/preferences", isAuth, addPreferences);
+router.delete("/preferences", isAuth, removePreferences);
+router.post("/favorite", isAuth, addFavorite);
+router.delete("/favorite", isAuth, removeFavorite);
+router.get("/favorite", isAuth, getUserFavorites);
 
 module.exports = router;

@@ -96,17 +96,16 @@ exports.login = async (req, res) => {
     const payload = {
       username: user.username,
       id: user._id,
+      dietaryPreferences: user.dietaryPreferences,
     };
 
     const options = {
-      expiresIn: "12h",
+      expiresIn: "30d",
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
-    res.cookie(process.env.JWT_NAME, token, {
-      httpOnly: true,
-    });
+    res.cookie(process.env.JWT_NAME, token, { httpOnly: true });
 
     res.sendStatus(200);
   } catch (error) {
@@ -117,7 +116,7 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res, next) => {
-  const token = req.headers.cookie.split("=")[1];
+  const token = req.cookies[process.env.JWT_NAME];
   const user = jwt.verify(token, process.env.JWT_SECRET);
   if (user) {
     res.clearCookie(process.env.JWT_NAME);

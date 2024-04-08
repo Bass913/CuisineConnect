@@ -1,16 +1,38 @@
 require("dotenv").config();
+const cookieParser = require("cookie-parser");
+
 const cors = require("cors");
 const express = require("express");
 const port = process.env.PORT;
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth.js");
-
+const userRouter = require("./routes/user.js");
+const recipeRouter = require("./routes/recipe.js");
+const categoryRouter = require("./routes/category.js");
+const assistantRouter = require("./routes/assistant.js");
+const recommendationRouter = require("./routes/recommendation.js");
+const chatRouter = require("./routes/chatbot.js");
+const shoppingListRouter = require("./routes/shoppingList.js");
+const suggestionRouter = require("./routes/accompaniments.js");
 const app = express();
+
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(express.urlencoded({ extended: true, limit: "16mb" }));
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONT_URL, // Remplacez par l'URL de votre frontend
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use("/auth", authRouter);
+app.use("/users", userRouter);
+app.use("/recipe", recipeRouter);
+app.use("/category", categoryRouter);
+app.use("/assistant", assistantRouter);
+app.use("/chat", chatRouter);
+app.use("/list", shoppingListRouter);
+app.use("/suggest", suggestionRouter);
 
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
