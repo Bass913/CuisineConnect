@@ -1,4 +1,4 @@
-import { FaceFrownIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { FaceFrownIcon, TrashIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/24/solid";
 import SearchBarSection from "../components/SearchBarSection";
 import Button from "../components/Button";
 import { addPreferences } from "../api/user";

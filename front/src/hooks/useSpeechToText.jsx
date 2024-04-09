@@ -7,13 +7,13 @@ const useSpeechToText = (options) => {
 
     useEffect(() => {
         if (!("webkitSpeechRecognition" in window)) {
-            console.log("Speech recognition is not supported");
+            console.log("Speech recognition is not sup ported");
             return;
         }
         recognitionRef.current = new window.webkitSpeechRecognition();
         const recognition = recognitionRef.current;
         recognition.interimResults = options.interimResults || true;
-        recognition.lang = "fr-FR";
+        recognition.lang = options.lang || "fr-FR";
         recognition.continuous = options.continuous || false;
 
         if ("webkitSpeechGrammarList" in window) {
@@ -42,6 +42,7 @@ const useSpeechToText = (options) => {
 
         recognition.onend = () => {
             setIsListening(false);
+            setTranscript("");
         };
         return () => {
             recognition.stop();
