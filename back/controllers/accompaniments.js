@@ -2,7 +2,9 @@ const OpenAI = require("openai");
 
 exports.suggestAccompaniments = async (req, res, next) => {
     const { recipe, mainIngredients } = req.body;
-    const openai = new OpenAI(process.env.OPENAI_API_KEY);
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
     async function main() {
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
