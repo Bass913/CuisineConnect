@@ -5,9 +5,10 @@ import slugify from "react-slugify";
 import {
 	HeartIcon as SolidHeartIcon,
 	EyeIcon,
-	TrashIcon
+	TrashIcon,
 } from "@heroicons/react/24/solid";
 import SearchBarSection from "../components/SearchBarSection";
+import DefaultLayout from "../layouts/DefaultLayout";
 
 export default function FavoriteRecipes() {
 	const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -25,15 +26,14 @@ export default function FavoriteRecipes() {
 		getUserFavorites().then((res) => {
 			setFavoriteRecipes(res);
 		});
-	}
-
+	};
 
 	useEffect(() => {
 		getFavorites();
 	}, []);
 
 	return (
-		<div>
+		<DefaultLayout>
 			<SearchBarSection isTall={false} />
 
 			<div className="flex items-center my-16">
@@ -89,7 +89,11 @@ export default function FavoriteRecipes() {
 										</td>
 										<td className="p-6 text-right">
 											<TrashIcon
-												onClick={() => removeFromFavorites(recipe._id)}
+												onClick={() =>
+													removeFromFavorites(
+														recipe._id
+													)
+												}
 												className=" text-rose-500 w-8 p-1"
 											/>
 										</td>
@@ -100,6 +104,6 @@ export default function FavoriteRecipes() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</DefaultLayout>
 	);
 }
