@@ -23,7 +23,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.urlencoded({ extended: true, limit: "16mb" }));
 app.use(express.json());
 const corsOptions = {
-    origin: "*",
+    origin: process.env.FRONT_URL,
     credentials: true,
 };
 app.use(cors(corsOptions));
