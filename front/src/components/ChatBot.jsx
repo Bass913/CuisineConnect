@@ -15,7 +15,8 @@ export default function ChatBot() {
         const userMessageObj = { from: "user", text: userMessage };
         setMessages((prevMessages) => [...prevMessages, userMessageObj]);
         setUserMessage("");
-        const url = "http://localhost:3000/chat/chat-with-chef";
+        const url =
+            "https://cuisineconnect-9ffq.onrender.com/chat/chat-with-chef";
 
         try {
             const response = await fetch(url, {
