@@ -18,17 +18,20 @@ export default function RecipeSearch({ recipe }) {
 
     const fetchAccompaniments = async (recipe, mainIngredients) => {
         setIsLoading(true);
-        fetch("http://localhost:3000/suggest/accompaniments", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                recipe: recipe,
-                mainIngredients: mainIngredients,
-            }),
-        })
+        fetch(
+            "https://cuisineconnect-9ffq.onrender.com/suggest/accompaniments",
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    recipe: recipe,
+                    mainIngredients: mainIngredients,
+                }),
+            }
+        )
             .then((response) => response.json())
             .then((data) => {
                 setAccompaniments(data);
