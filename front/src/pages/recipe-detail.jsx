@@ -114,8 +114,12 @@ function RecipeDetail() {
             navigate("/");
         }
         const fetchRecommendations = async () => {
-            const recommendations = await getRecommendation(recipe._id);
-            setRecommendations(recommendations);
+            try {
+                const recommendations = await getRecommendation(recipe._id);
+                setRecommendations(recommendations);
+            } catch (error) {
+                setRecommendations(false);
+            }
         };
         fetchRecommendations();
     }, []);
@@ -176,7 +180,10 @@ function RecipeDetail() {
                         <Comment recipe={recipe} />
                     </div>
                 </section>
-                {recommendations.length === 0 ? (
+                {!recommendations && (
+                    <p> Aucune recommendation n`a été trouvé</p>
+                )}
+                {recommendations && recommendations.length === 0 ? (
                     <Loading />
                 ) : (
                     <div className="flex flex-col items-center mx-auto max-w-5xl my-16">
@@ -190,6 +197,7 @@ function RecipeDetail() {
                         </div>
                     </div>
                 )}
+
                 <div>
                     {isLoading && (
                         <div className="loader-overlay">
