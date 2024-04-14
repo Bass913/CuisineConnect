@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
             const response = await fetch(
                 "https://cuisineconnect-9ffq.onrender.com/auth/logout",
                 {
-                    method: "POST",
+                    method: "DELETE",
                     credentials: "include",
                 }
             );

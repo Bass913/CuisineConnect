@@ -65,7 +65,11 @@ exports.removePreferences = async (req, res) => {
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
-        res.cookie(process.env.JWT_NAME, token, { httpOnly: true });
+        res.cookie(process.env.JWT_NAME, token, {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true,
+        });
         res.sendStatus(200);
     } catch (error) {
         res.status(500).json({

@@ -98,10 +98,12 @@ export default function Preferences() {
                                                         removePreferences({
                                                             dietaryPreferences:
                                                                 preference,
-                                                        }).then(
-                                                            async () =>
-                                                                await getUserInfo()
-                                                        )
+                                                        }).then(async () => {
+                                                            toast.success(
+                                                                "Contre-indication alimentaire supprimée !"
+                                                            );
+                                                            await getUserInfo();
+                                                        })
                                                     }
                                                 />
                                             </td>
