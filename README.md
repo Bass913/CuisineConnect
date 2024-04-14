@@ -48,7 +48,8 @@ Recherche de recettes de manière intelligente basée sur les données stockées
 # Recommandation de recettes intelligente : 
 Suggestions de recettes similaires lors de la consultation d'une recette.
 
-# Gestion de compte utilisateur : Connexion utilisateur pour sauvegarder les recettes favorites et les préférences alimentaires.
+# Gestion de compte utilisateur : 
+Connexion utilisateur pour sauvegarder les recettes favorites et les préférences alimentaires.
 
 # Système de notation et d’avis :
 Possibilité de noter les recettes et de laisser des commentaires.
@@ -63,12 +64,15 @@ Suggestions intelligentes d'accompagnements pour les recettes.
 Création de listes de courses à partir des recettes et possibilité de partage.
 
 ## Bonus :
+
 # Reconnaissance vocale intelligente : 
 Saisie vocale pour les recherches.
 # Streaming :
 Échanges de données en streaming pour les interactions avec l'IA.
+
 # Recherche calorique intelligente : 
 Recherche de recettes par apport calorique.
+
 # Mise en production : 
 Application déployée avec un nom de domaine en HTTPS.
 
