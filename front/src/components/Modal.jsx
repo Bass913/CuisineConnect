@@ -144,45 +144,23 @@ export default function Modal({
                                     .writeText(shoppingListText)
                                     .then(
                                         () => {
-                                            toast(
+                                            toast.success(
                                                 "Liste de courses copiée dans le presse-papier !",
                                                 {
                                                     position: "top-right",
                                                     autoClose: 5000,
-                                                    color: "red",
                                                     hideProgressBar: false,
                                                     closeOnClick: true,
                                                     pauseOnHover: true,
                                                     draggable: true,
                                                     progress: undefined,
                                                     theme: "light",
-                                                    style: {
-                                                        backgroundColor:
-                                                            "#22c55e",
-                                                        color: "white",
-                                                    },
                                                 }
                                             );
                                         },
                                         () => {
-                                            toast(
-                                                "Erreur lors de la copie dans le presse-papier",
-                                                {
-                                                    position: "top-right",
-                                                    autoClose: 5000,
-                                                    color: "red",
-                                                    hideProgressBar: false,
-                                                    closeOnClick: true,
-                                                    pauseOnHover: true,
-                                                    draggable: true,
-                                                    progress: undefined,
-                                                    theme: "light",
-                                                    style: {
-                                                        backgroundColor:
-                                                            "#E11D48",
-                                                        color: "white",
-                                                    },
-                                                }
+                                            toast.error(
+                                                "Erreur lors de la copie dans le presse-papier"
                                             );
                                         }
                                     );
