@@ -36,43 +36,44 @@ http://localhost:5173
 5. Connectez-vous:
 Utilisez le compte pré-créé mentionné ci-dessus pour vous connecter à l'application.
 
-### Fonctionnalités mises en place
+## Fonctionnalités mises en place
 Toutes les fonctionnalités principales et optionnelles ont été implémentées avec succès :
 
-# Interface graphique : 
+### Interface graphique
 Une interface web interactive pour les interactions avec les listes d'ingrédients, recettes, et recommandations.
 
-# Moteur de recherche intelligent : 
+### Moteur de recherche intelligent
 Recherche de recettes de manière intelligente basée sur les données stockées.
 
-# Recommandation de recettes intelligente : 
+### Recommandation de recettes intelligente
 Suggestions de recettes similaires lors de la consultation d'une recette.
 
-# Gestion de compte utilisateur : 
+### Gestion de compte utilisateur
 Connexion utilisateur pour sauvegarder les recettes favorites et les préférences alimentaires.
 
-# Système de notation et d’avis :
+### Système de notation et d’avis
 Possibilité de noter les recettes et de laisser des commentaires.
 
-# Assistant virtuel : 
+### Assistant virtuel
 Chatbot simulant un chef étoilé pour interagir à tout moment dans l'application.
 
-# Proposition d’accompagnement :
+### Proposition d’accompagnements
 Suggestions intelligentes d'accompagnements pour les recettes.
 
-# Générateur de liste de courses : 
+### Générateur de liste de courses
 Création de listes de courses à partir des recettes et possibilité de partage.
 
-## Bonus :
+## Bonus
 
-# Reconnaissance vocale intelligente : 
+### Reconnaissance vocale intelligente
 Saisie vocale pour les recherches.
-# Streaming :
+
+### Streaming
 Échanges de données en streaming pour les interactions avec l'IA.
 
-# Recherche calorique intelligente : 
+### Recherche calorique intelligente
 Recherche de recettes par apport calorique.
 
-# Mise en production : 
+### Mise en production
 Application déployée avec un nom de domaine en HTTPS.
 
