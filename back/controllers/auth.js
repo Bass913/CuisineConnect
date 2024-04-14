@@ -124,7 +124,11 @@ exports.logout = async (req, res, next) => {
     const token = req.cookies[process.env.JWT_NAME];
     const user = jwt.verify(token, process.env.JWT_SECRET);
     if (user) {
-        res.clearCookie(process.env.JWT_NAME);
+        res.clearCookie(process.env.JWT_NAME, {
+            secure: true,
+            httpOnly: true,
+            sameSite: "None",
+        });
         res.sendStatus(204);
     }
 };
