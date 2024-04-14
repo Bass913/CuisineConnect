@@ -105,7 +105,10 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign(payload, process.env.JWT_SECRET, options);
 
-    res.cookie(process.env.JWT_NAME, token, { httpOnly: true });
+    res.cookie(process.env.JWT_NAME, token, {
+      httpOnly: true,
+      sameSite: "None",
+    });
 
     res.sendStatus(200);
   } catch (error) {
