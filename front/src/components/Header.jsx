@@ -16,7 +16,6 @@ export default function Header({ user }) {
     const navigate = useNavigate();
     const onClick = () => {
         logout();
-        navigate(0);
     };
     return (
         <header className="h-20 flex items-center justify-between px-5 mx-auto fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 dark:border-b border-gray-200">
