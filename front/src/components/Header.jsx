@@ -6,14 +6,13 @@ import {
     HeartIcon as SolidHeartIcon,
     FaceFrownIcon,
 } from "@heroicons/react/24/solid";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Button from "./Button";
 import { UserCircleIcon } from "lucide-react";
 import { useUser } from "../hooks/useUser";
 
 export default function Header({ user }) {
     const { logout } = useUser();
-    const navigate = useNavigate();
     const onClick = () => {
         logout();
     };
@@ -50,7 +49,7 @@ export default function Header({ user }) {
                         </div>
                         <Button
                             className="text-white bg-rose-600 hover:bg-rose-600 p-4 rounded text-sm flex items-center gap-2 hover:bg-rose-700"
-                            onClick={() => onClick()}
+                            onClick={onClick}
                         >
                             <ArrowRightStartOnRectangleIcon className="w-5 h-5" />
                             Se déconnecter
