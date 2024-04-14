@@ -42,18 +42,17 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const logout = async () => {
+    const logout = () => {
         try {
-            const response = await fetch(
+            return fetch(
                 "https://cuisineconnect-9ffq.onrender.com/auth/logout",
                 {
                     method: "DELETE",
                     credentials: "include",
                 }
-            );
-            if (!response.ok) {
-                throw new Error("Something went wrong, request failed!");
-            }
+            ).then(() => {
+                setUser(null);
+            });
         } catch (error) {
             console.log(error);
         }
