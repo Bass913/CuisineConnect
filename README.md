@@ -1,7 +1,7 @@
 # Projet Intégration d'IA via API
 
 ## Créé par :
-- Rafael93150, alias TAVARES DE PINHO Rafael
+- rafael-tdp, alias TAVARES DE PINHO Rafael
 - asma1mokeddes, alias MOKEDDES Asma
 - Taslima-Ahamed-Mze, alias TASLIMA Ahamed Mze
 - Bass913, alias DIKIADI NDONGALA VUANZA Bastien
