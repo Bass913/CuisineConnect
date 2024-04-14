@@ -34,7 +34,6 @@ exports.addPreferences = async (req, res) => {
 
         res.cookie(process.env.JWT_NAME, token, {
             httpOnly: true,
-            sameSite: "None",
             secure: true,
         });
         res.sendStatus(201);
@@ -67,7 +66,6 @@ exports.removePreferences = async (req, res) => {
 
         res.cookie(process.env.JWT_NAME, token, {
             httpOnly: true,
-            sameSite: "None",
             secure: true,
         });
         res.sendStatus(200);
