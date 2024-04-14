@@ -10,8 +10,8 @@
 Pour faciliter les tests, voici un compte pré-créé avec le mot de passe associé :
 
 User Account:
-Identifiant: test-01@yopmail.com.fr
-Mot de passe: Sunshajk@101
+Identifiant: test@yopmail.com
+Mot de passe: test12345@MA
 
 ## Setup le projet:
 
