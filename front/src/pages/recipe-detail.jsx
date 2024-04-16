@@ -115,7 +115,9 @@ function RecipeDetail() {
         }
         const fetchRecommendations = async () => {
             const recommendations = await getRecommendation(recipe._id);
-            setRecommendations(recommendations);
+            setRecommendations(
+                Array.isArray(recommendations) ? recommendations : []
+            );
         };
         fetchRecommendations();
     }, []);
@@ -187,10 +189,7 @@ function RecipeDetail() {
                             Recommandations de recettes similaires
                         </h1>
                         <div className="flex justify-between gap-5">
-                            {(Array.isArray(recommendations)
-                                ? recommendations
-                                : []
-                            ).map((recipe) => (
+                            {recommendations.map((recipe) => (
                                 <Card key={recipe._id} recipe={recipe} />
                             ))}
                         </div>
