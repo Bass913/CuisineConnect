@@ -178,9 +178,6 @@ function RecipeDetail() {
                         <Comment recipe={recipe} />
                     </div>
                 </section>
-                {recommendations.length === 0 && (
-                    <p> Aucune recommendation n`a été trouvé</p>
-                )}
                 {!recommendations ? (
                     <Loading />
                 ) : (
@@ -194,6 +191,9 @@ function RecipeDetail() {
                             ))}
                         </div>
                     </div>
+                )}
+                {recommendations && recommendations.length === 0 && (
+                    <p> Aucune recommendation n`a été trouvé</p>
                 )}
 
                 <div>
