@@ -114,12 +114,8 @@ function RecipeDetail() {
             navigate("/");
         }
         const fetchRecommendations = async () => {
-            try {
-                const recommendations = await getRecommendation(recipe._id);
-                setRecommendations(recommendations);
-            } catch (error) {
-                setRecommendations(false);
-            }
+            const recommendations = await getRecommendation(recipe._id);
+            setRecommendations(recommendations);
         };
         fetchRecommendations();
     }, []);

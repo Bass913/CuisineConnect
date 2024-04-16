@@ -10,7 +10,11 @@ export const getRecipes = async () => {
 export const getRecommendation = async (recipeId) => {
     return fetch(
         `https://cuisineconnect-9ffq.onrender.com/recipe/${recipeId}/recommendations`
-    ).then((response) => response.json());
+    )
+        .then((response) => response.json())
+        .catch(() => {
+            return false;
+        });
 };
 
 export const addComment = async (recipeId, comment, rating) => {
