@@ -27,7 +27,7 @@ function RecipeDetail() {
 
     const [counter, setCounter] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [recommendations, setRecommendations] = useState([]);
+    const [recommendations, setRecommendations] = useState(null);
 
     const increaseCounter = () => {
         const newCounter = counter + 1;
@@ -176,10 +176,10 @@ function RecipeDetail() {
                         <Comment recipe={recipe} />
                     </div>
                 </section>
-                {!recommendations && (
+                {recommendations.length === 0 && (
                     <p> Aucune recommendation n`a été trouvé</p>
                 )}
-                {recommendations && recommendations.length === 0 ? (
+                {!recommendations ? (
                     <Loading />
                 ) : (
                     <div className="flex flex-col items-center mx-auto max-w-5xl my-16">
@@ -187,7 +187,10 @@ function RecipeDetail() {
                             Recommandations de recettes similaires
                         </h1>
                         <div className="flex justify-between gap-5">
-                            {recommendations.map((recipe) => (
+                            {(Array.isArray(recommendations)
+                                ? recommendations
+                                : []
+                            ).map((recipe) => (
                                 <Card key={recipe._id} recipe={recipe} />
                             ))}
                         </div>
